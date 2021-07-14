@@ -4,6 +4,7 @@
 ## SSH基础
 
 UPDATE: Nov.09, 2018<br>
+
 Author: Feiyue Cai
 
 </center>
@@ -13,9 +14,7 @@ Content
 - 1.简介
 - 2.SSH客户端基本用法
 
-
 <br>
-<div STYLE="page-break-after: always;"></div>
 
 
 ### 1. 简介
@@ -52,9 +51,7 @@ SSH可以有很多用途，一般来说，我们经常用来：
 - [SCP](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A4%8D%E5%88%B6): 安全复制，基于SSH协议进行的文件传输。
 - ssh（全部小写）: 远程登录的命令, 类似的还有sftp, scp, sshfs等
 
-
 <br>
-<div STYLE="page-break-after: always;"></div>
 
 
 ### 2. SSH客户端基本用法
@@ -129,6 +126,7 @@ $ scp user@host:/remote/path/sourcefile /local/targetpath/  # 从主机复制文
 
 
 ##### SFTP与SCP比较
+
 协议 | 速度 | 安全 | 功能 | 大文件传输 | 断点续传 | 其他
 --- | --- | --- | --- | --- | --- | ---
 SFTP | 慢 | 较安全 | 较多 | 支持 | 支持
