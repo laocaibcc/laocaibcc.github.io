@@ -1,13 +1,8 @@
 
-<center>
 
 ## SSH基础
 
 UPDATE: Nov.09, 2018<br>
-
-Author: Feiyue Cai
-
-</center>
 
 
 Content
@@ -18,7 +13,9 @@ Content
 
 
 ### 1. 简介
+
 #### 什么是SSH？
+
 > "Secure Shell（安全外壳协议，简称SSH）是一种加密的网络传输协议，可在不安全的网络中为网络服务提供安全的传输环境." - [Secure Shell](https://zh.wikipedia.org/wiki/Secure_Shell)
 
 SSH，字面意思是安全的shell，但SSH并不是一种shell，只是创建了一个通道在远程服务器上运行 shell。SSH是客户端/服务器的体系结构。一般来说，它具有下面几种特点：
@@ -30,6 +27,7 @@ SSH实际上并不是一种完全安全的解决方案，但是目前为止似�
 
 
 #### SSH的用途
+
 SSH可以有很多用途，一般来说，我们经常用来：
 - 远程登录
 - 文件传输
@@ -40,6 +38,7 @@ SSH可以有很多用途，一般来说，我们经常用来：
 
 
 #### 常见的术语
+
 使用SSH时可能遇到一些名词，为避免混淆，简单介绍一下：
 - [SSH](https://zh.wikipedia.org/wiki/Secure_Shell): 通用的术语，泛指SSH协议或者相关软件。
 - SSH-1: SSH协议版本1。
@@ -55,7 +54,9 @@ SSH可以有很多用途，一般来说，我们经常用来：
 
 
 ### 2. SSH客户端基本用法
+
 #### SSH远程登录
+
 SSH远程登录，通常使用客户端程序进行登录，一般只需要填写账户，密码和端口等。SSH客户端程序有很多，比如MobaXterm, PuTTY, Xshell等。常用SSH客户端的比较可以参考:
 - [SSH客户端比较](https://zh.wikipedia.org/wiki/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%AF%94%E8%BE%83)
 
