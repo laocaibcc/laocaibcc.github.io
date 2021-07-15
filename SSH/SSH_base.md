@@ -74,6 +74,7 @@ $ ssh tux@111.111.111.1 -p 1111
 -i  # 密钥文件（如果登录方式为密钥登录）
 -X  # 使用X11 
 -l  # 用户名，可以用@方式省略，现在很少用
+-v  # debug 信息
 ```
 
 #### 基于SSH的文件传输
@@ -81,13 +82,7 @@ $ ssh tux@111.111.111.1 -p 1111
 ##### SFTP
 > "SSH文件传输协议（英语：SSH File Transfer Protocol，也称Secret File Transfer Protocol，中文：安全文件传送协议，英文：Secure FTP或字母缩写：SFTP）是一数据流连线，提供文件访问、传输和管理功能的网上传输协议。" - [SSH文件传输协议](https://zh.wikipedia.org/wiki/SSH%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE)
 
-##### SCP
-
-> "安全复制（英语：Secure copy，缩写SCP）是指在本地主机与远程主机或者两台远程主机之间基于Secure Shell（SSH）协议安全地传输电脑文件。[1]“SCP”通常指安全复制协议或者程序本身。" - [安全复制](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A4%8D%E5%88%B6)  
-
-很多SSH客户端程序远程登录时默认建立了SFTP连接，不需要另外连接。SCP文件传输通常需要其他的客户端，连接方式与SSH基本一致: 账户，密码和端口等。  
-
-SFTP与SCP的命令行文件传输方法有些差别，SCP功能比较单一，基本只能用来文件传输，而SFTP的功能较多。
+很多SSH客户端程序远程登录时默认建立了SFTP连接，不需要另外连接。
 
 SFTP命令行用法
 ```sh
@@ -114,6 +109,12 @@ ls, cd, pwd, mkdir, rmdir, delete等 # 针对远程服务器的操作
 lls，lcd等  # 针对本地的操作，功能与ls, cd同
 ```
 
+##### SCP
+
+> "安全复制（英语：Secure copy，缩写SCP）是指在本地主机与远程主机或者两台远程主机之间基于Secure Shell（SSH）协议安全地传输电脑文件。[1]“SCP”通常指安全复制协议或者程序本身。" - [安全复制](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A4%8D%E5%88%B6)  
+
+SCP文件传输通常需要其他的客户端，连接方式与SSH基本一致: 账户，密码和端口等。  
+
 SCP命令行用法
 ```sh
 $ scp /local/path/sourcefile user@host:/remote/targetpath/  # 复制文件到主机
@@ -125,8 +126,9 @@ $ scp user@host:/remote/path/sourcefile /local/targetpath/  # 从主机复制文
 -r  # 文件夹
 ```
 
-
 ##### SFTP与SCP比较
+
+SFTP与SCP的命令行文件传输方法有些差别，SCP功能比较单一，基本只能用来文件传输，而SFTP的功能较多。
 
 协议 | 速度 | 安全 | 功能 | 大文件传输 | 断点续传 | 其他
 --- | --- | --- | --- | --- | --- | ---
