@@ -6,7 +6,7 @@ author: laocai
 
 
 navbar-links:
-  About Me: "about me"
+  About Me: "about_me"
   Resource: "None"
 
 # exclude these files from production site
