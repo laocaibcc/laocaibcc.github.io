@@ -1,2 +1,15 @@
 theme: jekyll-theme-cayman
 title: Free Share Open
+
+# your name show in footer
+author: laocai
+
+
+navbar-links:
+  About Me: "about me"
+  Resource: "None"
+
+# exclude these files from production site
+exclude:
+  - README.md
+  - LICENSE
