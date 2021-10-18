@@ -20,6 +20,7 @@
 使用反馈：
 - 每个项目需要单独安装，重复安装较多，浪费资源
 - 仅个人用户可用，共享性不够
+- 如何设定库的共享：包括项目之间，用户之间的共享
 
 #### **安装 & 使用**
 
@@ -46,6 +47,9 @@ rm -r /path/to/venv
 pip install python_lib
 pip install -r requirements.txt
 ```
+
+
+#### **问题与解决**
 
 参考资料：
 - [Python--Virtualenv简明教程](https://www.jianshu.com/p/08c657bd34f1)
@@ -76,7 +80,6 @@ pipenv install --skip-lock numpy==1.15.4
 pipenv install -r requirements.txt
 ```
 
-
 #### **问题与解决**
 
 1.使用 ```pip3``` 安装，可能会遇到 ```pipenv: command not found```
@@ -100,3 +103,8 @@ pipenv install -r requirements.txt
 
 
 
+<br>
+<div STYLE="page-break-after: always;"></div>
+
+
+### 其他

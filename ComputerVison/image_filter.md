@@ -20,6 +20,11 @@
 
 平滑，是利用某种方法去除数据中的噪声而保持数据中其他信息不变。
 
+平滑方法的分类：
+- 利用局部信息
+- 利用拟合信息
+
+
 一些常见的平滑方法：
 - Kernel smoother
 - Laplacian smoothing
@@ -30,11 +35,27 @@
 - Digital filter
 
 
+注意：平滑与曲线拟合是有一些不同的，具体的不同之处需要进一步去探索。
 
 参考资料：
 - [1] [Smoothing](https://en.wikipedia.org/wiki/Smoothing)
 - [2] [Kernel](https://en.wikipedia.org/wiki/Kernel_(image_processing))
 - [3] [Convolution](https://en.wikipedia.org/wiki/Convolution)
+
+#### **Kernel smoother**
+
+kernel 平滑算法是根据 kernel 和局部数据来计算平滑结果的方法。
+
+- Gaussian kernel smoother：高斯核
+- Nearest neighbor smoother：最近邻
+- Kernel average smoother：均值核
+- Local linear regression：局部线性回归，寻找最小平方差问题
+- Local polynomial regression：局部多项式回归
+
+
+参考资料：
+- [1] [Kernel smoother](https://en.wikipedia.org/wiki/Kernel_smoother)
+
 
 
 
