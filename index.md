@@ -10,6 +10,7 @@ This pages aims to sharing technology, solution and so on.
   - [SSH 基础](https://laocaibcc.github.io/SSH/SSH_basis)
 - Linux
   - [Linux 打包压缩](https://laocaibcc.github.io/Linux/Linux_compression)
+  - [Linux 用户权限管理](https://laocaibcc.github.io/Linux/Linux_user_administration)
 
 
 #### TODO

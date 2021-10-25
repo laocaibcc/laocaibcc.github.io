@@ -1,14 +1,26 @@
 
-## Linux 权限管理
+## Linux 用户权限管理
 
 
 TODO
 - [ ] 权限说明
 - [ ] 分组管理
+- [ ] 添加保护的文件如何删除
+
+### 1. 用户和分组
+
+chown
+
+
+参考资料：
+- [Linux 高级编程 - 有名管道 FIFO](https://dlonng.com/posts/fifo)
+
+
+<br>
 
 ### 1. 文件基本属性
 
-在 Linux 中我们可以使用 ```ll``` 或者 ```ls –l``` 命令来显示一个文件的属性以及文件所属的用户和组。
+在 Linux 中，一切都是文件（文件夹也是一种特殊的文件）。了解文件的基本属性。在 Linux 中我们可以使用 ```ls -l``` 或者 ```ll``` 命令来显示一个文件的属性以及文件所属的用户和组。
 
 ```sh
 # ll 或 ls -l 通常可以看到下面的信息
@@ -28,7 +40,7 @@ lrwxrwxrwx  1 root root    9 Mar 13  2018 man -> share/man/
 
 #### 1.1 文件类型说明
 
-在 Linux 中，一切都是文件，包括文件夹，其实也是一种特殊的文件。具体来说，可以有以下几种类型：
+Linux 中的文件具体来说有以下几种类型：
 
 符号 | 文件类型 | 说明
 --- | --- | ---
@@ -70,16 +82,10 @@ rwx | 111 | 7
 修改权限：
 - chmod 修改用户权限
 
-### 2. 用户和分组
-
-chown
-
 
 参考资料：
 - [Linux 文件基本属性](https://www.runoob.com/linux/linux-file-attr-permission.html)
 - [Linux: Linux的文件类型及查看文件类型的方法](https://www.cnblogs.com/yongdaimi/p/12573298.html)
-- [Linux 高级编程 - 有名管道 FIFO](https://dlonng.com/posts/fifo)
-
 
 ---
 
