@@ -25,10 +25,20 @@
 
 <br>
 
+评估配准误差：**RMSE**
+
+> "The root-mean-square deviation (RMSD) or root-mean-square error (RMSE) (or sometimes root-mean-squared error) is a frequently used measure of the differences between values (sample or population values) predicted by a model or an estimator and the values observed." - [4]
+
+<img src='resource/rigid_registration/img_22.svg' height=50>
+
+
 参考资料：
 - [1] [Image registration](https://en.wikipedia.org/wiki/Image_registration)
 - [2] [Affine transformation](https://en.wikipedia.org/wiki/Affine_transformation)
 - [3] [Spatial Transformation Matrices](https://www.brainvoyager.com/bv/doc/UsersGuide/CoordsAndTransforms/SpatialTransformationMatrices.html)
+- [4] [RMSE](https://en.wikipedia.org/wiki/Root-mean-square_deviation)
+
+<br>
 
 ### 2. ICP Registration
 
@@ -41,12 +51,12 @@ TODO：
 <img src='resource/rigid_registration/img_05.png' height=40>
 
 算法流程：
-- 1.数据预处理：点的采样方式，有选取子数据集，随机采样，梯度大的点等。
-- 2.确定配对关系：确定配对的方法，有点到点，点投影到面后搜索等。
-- 3.调整权重：每个点对的权重，有常数，近点权重大，法向量方向一致性等。
-- 4.删除点对：去除不合理的点对，有大于一定距离，去除最差的n%，大于标准差一定倍数的，去除边缘点等
-- 5.根据目标方程，**利用数学方法（SUV方法或者四元数法）求解旋转矩阵 R 和平移矩阵 t**。优化求解最优旋转和平移矩阵的流程，有重复的产生配对点对并更新计算变换矩阵，转换到其他空间加速收敛，添加一定的扰动等
-- 6.评估对应点集位置关系是否满足要求，如果满足则算法结束，否则返回第2步：点对的评估方法，有点到点的距离，结合颜色的点到点距离，点到面的距离，
+- 1.数据预处理：点的采样方式，常见的采样方式包括选取子数据集，随机采样，梯度大的点等。
+- 2.确定配对关系：确定配对的方法，点对的匹配方法有点到点，点投影到面后搜索等。
+- 3.调整权重：每个点对的权重，常见的权重调整方法包括常数，近点权重大，法向量方向一致性等。
+- 4.删除点对：去除不合理的点对，常见方法有大于一定距离的去除，去除最差的n%，大于标准差一定倍数的，去除边缘点等
+- 5.根据目标方程，**利用数学方法（SUV方法或者四元数法）求解旋转矩阵 R 和平移矩阵 t**。优化求解最优旋转和平移矩阵的流程，一般有重复的产生配对点对并更新计算变换矩阵，转换到其他空间加速收敛，添加一定的扰动等
+- 6.评估对应点集位置关系是否满足要求，如果满足则算法结束，否则返回第2步：点对的评估方法，包括点到点的距离，结合颜色的点到点距离，点到面的距离等。
 
 
 参考资料：
@@ -61,8 +71,6 @@ TODO：
 - [ ] 为何可以交替优化来寻找最小值：ADMM
 - [ ] 法向量：如何计算？
 - [ ] 牛顿-高斯方法
-- [ ] 测试可行性分析
-
 
 Fast global registration [1] 算法流程：
 
@@ -88,9 +96,6 @@ FGR 的目标方程中使用了 ρ(·) 函数，ρ 函数本身具有鲁棒性�
 Geman-McClure estimator 的曲线如下所示：
 
 <img src='resource/rigid_registration/img_07.png' height=300>
-
-<br>
-
 
 FGR 的目标方程直接优化比较难，本文采用了论文 [6] 中提到的 ***Black-Rangarajan duality***
 between robust estimation and line processes， L = {lp,q } 是两对应点之间的 line process， 需要优化的目标方程更新为：
@@ -125,6 +130,8 @@ between robust estimation and line processes， L = {lp,q } 是两对应点之�
 
 r 是残差向量，Jr 是雅可比矩阵。
 
+Graduated optimization
+> "Graduated optimization is a global optimization technique that attempts to solve a difficult optimization problem by initially solving a greatly simplified problem, and progressively transforming that problem (while optimizing) until it is equivalent to the difficult optimization problem." - [7]
 
 参考资料：
 - [1] [Fast Global Registration](http://vladlen.info/papers/fast-global-registration.pdf)
@@ -133,10 +140,13 @@ r 是残差向量，Jr 是雅可比矩阵。
 - [4] [M-estimator](https://en.wikipedia.org/wiki/M-estimator)
 - [5] [M-estimators](http://www-sop.inria.fr/odyssee/software/old_robotvis/Tutorial-Estim/node24.html)
 - [6] [On the Unification of Line Processes, Outlier Rejection, and Robust Statistics with Applications in Early Vision](https://www.cise.ufl.edu/~anand/pdf/ijcv.pdf)
+- [7] [Graduated optimization](https://en.wikipedia.org/wiki/Graduated_optimization)
 
 
 ### FPFH 
 
+TODO:
+- [ ] 详细解释
 
 粗略来说，就是点与周围点在空间角度等方面的关系，比距离简单的关系会更好。
 
