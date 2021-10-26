@@ -1,4 +1,26 @@
 
+## 目标检测
+
+> 目标检测是利用计算机视觉和图像处理技术，检测数字图像或者视频中特定类型的语义物体。 - [1]
+
+
+参考资料：
+- [1] [Object detection](https://en.wikipedia.org/wiki/Object_detection)
+
+方法分类：
+- 非神经网络方法
+  - Harr 特征
+  - SIFT 特征
+  - HOG 特征
+- 神经网络方法
+  - Region Proposals系列（R-CNN，Fast R-CNN, Faster R-CNN, cascade R-CNN）
+  - SSD
+  - YOLO 系列
+  - RefineDet
+  - Retina-Net
+  - Deformable convolutional networks 
+
+
 ### RCNN
 对RCNN的介绍，下面这篇博客做了比较详细的介绍：
 
@@ -53,9 +75,7 @@
 - box encoding
 - Location loss
 
-#### Input size configuration
-- 300
-- 600
+
 
 #### Analyses
 - Accuracy vs time: Faster R-CNN get better accuracy, but slower.
