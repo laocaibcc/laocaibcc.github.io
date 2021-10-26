@@ -1,6 +1,5 @@
 ## 激活函数
 
-
 ### 简介
 
 > "在人工神经网络中，激活函数是根据输入定义节点（或神经元）的输出。一般，该输出也会是下一个节点的输入。" - [Activation function](https://en.wikipedia.org/wiki/Activation_function)  
@@ -34,21 +33,25 @@
 
 #### Sigmoid
 1844年（1845年发表） 就提出来了，经典的激活函数，但是目前使用的不太多。Sigmoid函数单调平滑可导，能够压缩输出数值，但Sigmoid函数左右两端饱和，梯度很小，容易导致梯度损失。除此之外，Sigmoid函数不是关于原点中心对称，函数中的幂运算也相对耗时。
-```math
-f(x)=\sigma (x)=\frac{1}{1+e^{-x}}
-```
+
+
+[//]:(sigma(x)=\frac{1}{1+e^{-x})
 
 <center>
-<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/320px-Logistic-curve.svg.png' height=200>
+<img src="http://latex.codecogs.com/gif.latex?\sigma(x)=\frac{1}{1+e^{-x}}">
+<br>
+<img src='resource/deep_learning_activation_function/img_01.png' height=200>
 </center>
 
 #### Tanh
 与Sigmoid函数很类似，也是经典的激活函数。与Sigmoid函数相比，Tanh改进的地方是函数输出值关于原点中心对称。梯度损失和计算耗时的问题还是存在。
-```math
-f(x)=tanh (x)=\frac{(e^{x}-e^{-x})}{(e^{x}+e^{-x})}
-```
+
+[//]:(tanh(x)=\frac{(e^{x}-e^{-x})}{(e^{x}+e^{-x})})
+
 <center>
-<img src='http://mathworld.wolfram.com/images/interactive/TanhReal.gif' height=220>
+<img src="http://latex.codecogs.com/gif.latex?\sigma(x)=\frac{1}{1+e^{-x}}">
+<br>
+<img src='resource/deep_learning_activation_function/img_02.gif' height=220>
 </center>
 
 #### ReLU
@@ -60,14 +63,14 @@ x \qquad if\, x\geqslant 0
 \end{matrix}\right.
 ```
 <center>
-<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Rectifier_and_softplus_functions.svg/495px-Rectifier_and_softplus_functions.svg.png' height=250>
+<img src='resource/deep_learning_activation_function/img_03.png' height=260>
 </center>
 
 #### Leaky ReLU, Parameteric ReLU(PReLU), Randomized leaky ReLU(RReLU),
 *Bing Xu et al. 2015* 在 [Empirical Evaluation of Rectified Activations in Convolutional Network](https://arxiv.org/abs/1505.00853) 对这几种激活函数进行了分析比较， 他们通过实验比较了这几种ReLU激活函数对分类网络的影响，改善的ReLU比原始ReLU得到的结果要更好，其中RReLU更胜一筹，但是这个结果不一定适用于其他数据集和网络。但可以肯定的是，ReLU并不是激活函数的终结，还会有更合适的激活函数出现。
 
 <center>
-<img src='https://i.stack.imgur.com/1BX7l.png'>
+<img src='resource/deep_learning_activation_function/img_04.png' height=230>
 </center>
 
 ##### Leaky ReLU
@@ -115,7 +118,7 @@ x \qquad \qquad \quad if\, x> 0\\
 \end{matrix}\right.
 ```
 <center>
-<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Activation_elu.svg/1280px-Activation_elu.svg.png' height=200>
+<img src='resource/deep_learning_activation_function/img_05.png' height=200>
 </center>
 
 #### Maxout
