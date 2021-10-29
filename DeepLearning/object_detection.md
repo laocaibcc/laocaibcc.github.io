@@ -40,10 +40,33 @@ RCNN 算法流程如下：
 
 **待完成**
 - [ ] Selective Search
-- [ ] BBox Regression
+- [ ] Bounding-box regression
 
+**Selective Search**
+
+**BBox Regression**
 
 #### **Fast RCNN**
+
+Fast RCNN 是基于 RCNN 网络的改进，进一步提高了算法训练和运行的速度。
+
+Fast RCNN 算法流程如下：
+- 1.候选区域生成： 一张图像生成1K~2K个候选区域（采用Selective Search 方法）
+- 2.准备数据和金标训练网络：将特征提取，目标检测分类和 bbox 回归整合到一个网络结构中，进行训练。
+
+论文的贡献：
+- 一次性训练，使用多任务 loss，节省时间和资源：将之前的特征提取，类别判断和位置调整等过程整合在一个网络训练过程中。
+- 提出一个 RoI 层：SPP 是 pooling 成多个固定尺度，RoI 只 pooling 到单个固定的尺度。
+
+TODO
+- [ ] RoI pooling 是什么东西
+
+一些实验：
+- 网络末端同步训练的分类和位置调整，提升准确度
+- 使用多尺度的图像金字塔，性能几乎没有提高
+- 倍增训练数据，能够有2%-3%的准确度提升
+- 网络直接输出各类概率(softmax)，比SVM分类器性能略好
+- 更多候选窗不能提升性能
 
 
 #### **Faster RCNN**
@@ -53,37 +76,12 @@ RCNN 算法流程如下：
 - [1] [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)
 - [2] [Fast R-CNN](https://arxiv.org/abs/1504.08083)
 - [3] [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497)
-- [RCNN- 将CNN引入目标检测的开山之作](https://zhuanlan.zhihu.com/p/23006190)
+- [4] [RCNN- 将CNN引入目标检测的开山之作](https://zhuanlan.zhihu.com/p/23006190)
+- [5] [【目标检测】RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51066975#fn:1)
+- [6] [【目标检测】Fast RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51036677)
+- [7] [【目标检测】Faster RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51152614)
 
 
-### RCNN
-对RCNN的介绍，下面这篇博客做了比较详细的介绍：
-
->[【目标检测】RCNN算法详解  - shenxiaolu1984](https://blog.csdn.net/shenxiaolu1984/article/details/51066975#fn:1)
-
-
-**网络结构**
-![network](https://img-blog.csdn.net/20160405214721512)
-
-#### 一些疑问
-
----
-### Fast RCNN
-同上，Fast RCNN的介绍，可以参考：
-
->[【目标检测】Fast RCNN算法详解  - shenxiaolu1984](https://blog.csdn.net/shenxiaolu1984/article/details/51036677)
-
-**网络结构**
-![network](https://img-blog.csdn.net/20160411214438672)
-
-
----
-### Faster RCNN
-
->[【目标检测】Faster RCNN算法详解  - shenxiaolu1984](https://blog.csdn.net/shenxiaolu1984/article/details/51152614)
-
-**网络结构**
-![network](https://img-blog.csdn.net/20160415133947737)
 
 
 ---
