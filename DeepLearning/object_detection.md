@@ -4,9 +4,6 @@
 > 目标检测是利用计算机视觉和图像处理技术，检测数字图像或者视频中特定类型的语义物体。 - [1]
 
 
-参考资料：
-- [1] [Object detection](https://en.wikipedia.org/wiki/Object_detection)
-
 方法分类：
 - 非神经网络方法
   - Harr 特征
@@ -20,8 +17,17 @@
   - Retina-Net
   - Deformable convolutional networks 
 
+参考资料：
+- [1] [Object detection](https://en.wikipedia.org/wiki/Object_detection)
 
 ### Region Proposal 系列
+
+**待完成**
+- [ ] Selective Search
+- [ ] Bounding-box regression
+- [ ] RoI pooling： pooling 层
+- [ ] 全卷积层
+- Scale invariance
 
 RCNN [1], Fast RCNN [2], Faster RCNN [3], cascade RCNN 都是基于 region proposal 方法来进行目标检测。
 
@@ -38,9 +44,7 @@ RCNN 算法流程如下：
 - 速度：一般的目标检测方法是采用滑动窗口法来判断所有可能的区域，本文采用 Selective Search 方法预先提取一系列较可能是物体的候选区域。
 - CNN 网络提取特征和有监督的训练：以往的目标检测算法一般都是提取人工设定的特征，本文采用神经网络的方法提取深度特征，并通过有监督的方法训练模型。
 
-**待完成**
-- [ ] Selective Search
-- [ ] Bounding-box regression
+
 
 **Selective Search**
 
@@ -48,20 +52,19 @@ RCNN 算法流程如下：
 
 #### **Fast RCNN**
 
-Fast RCNN 是基于 RCNN 网络的改进，进一步提高了算法训练和运行的速度。
+Fast RCNN 是基于 RCNN 网络的改进，进一步简化了算法训练的流程，提高算法运行速度和表现。
 
 Fast RCNN 算法流程如下：
-- 1.候选区域生成： 一张图像生成1K~2K个候选区域（采用Selective Search 方法）
-- 2.准备数据和金标训练网络：将特征提取，目标检测分类和 bbox 回归整合到一个网络结构中，进行训练。
+- 1.候选区域生成： 一张图像生成 1k-2k 个候选区域（采用Selective Search 方法）
+- 2.准备数据和金标训练网络：将特征提取，目标检测（包括分类）和 bbox 回归整合到一个网络结构中，进行训练。
+
 
 论文的贡献：
 - 一次性训练，使用多任务 loss，节省时间和资源：将之前的特征提取，类别判断和位置调整等过程整合在一个网络训练过程中。
 - 提出一个 RoI 层：SPP 是 pooling 成多个固定尺度，RoI 只 pooling 到单个固定的尺度。
 
-TODO
-- [ ] RoI pooling 是什么东西
 
-一些实验：
+一些实验结果：
 - 网络末端同步训练的分类和位置调整，提升准确度
 - 使用多尺度的图像金字塔，性能几乎没有提高
 - 倍增训练数据，能够有2%-3%的准确度提升
@@ -70,6 +73,12 @@ TODO
 
 
 #### **Faster RCNN**
+
+Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区域生成整合到整个训练网络流程中，进一步简化了网络结构生成。
+
+算法流程如下：
+- 深度学习网络
+
 
 
 参考资料：
@@ -80,17 +89,13 @@ TODO
 - [5] [【目标检测】RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51066975#fn:1)
 - [6] [【目标检测】Fast RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51036677)
 - [7] [【目标检测】Faster RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51152614)
+- [8] [Scale invariance](https://en.wikipedia.org/wiki/Scale_invariance)
 
 
 
 
 ---
 ### Speed/accuracy trade-offs for modern convolutional object detectors
-
-#### Three meta-architecture:
-- Faster R-CNN
-- R-FCN
-- SSD
 
 #### Architectural configuration
 - feature extractor
