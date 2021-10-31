@@ -1,8 +1,9 @@
 
 ## 目标检测
 
-> 目标检测是利用计算机视觉和图像处理技术，检测数字图像或者视频中特定类型的语义物体。 - [1]
+<font color=red>预估时间：6h</font>
 
+> 目标检测是利用计算机视觉和图像处理技术，检测数字图像或者视频中特定类型的语义物体。 - [1]
 
 方法分类：
 - 非神经网络方法
@@ -10,9 +11,12 @@
   - SIFT 特征
   - HOG 特征
 - 神经网络方法
-  - Region Proposals系列（R-CNN，Fast R-CNN, Faster R-CNN, cascade R-CNN）
-  - SSD
-  - YOLO 系列
+  - [ ] **Region Proposals系列**
+    - [x] R-CNN
+    - [x] Fast R-CNN
+    - [ ] Faster R-CNN
+  - [ ] **SSD**
+  - [ ] **YOLO 系列**
   - RefineDet
   - Retina-Net
   - Deformable convolutional networks 
@@ -20,14 +24,13 @@
 参考资料：
 - [1] [Object detection](https://en.wikipedia.org/wiki/Object_detection)
 
-### Region Proposal 系列
+<br>
+
+### 1. Region Proposal 系列
 
 **待完成**
 - [ ] Selective Search
 - [ ] Bounding-box regression
-- [ ] RoI pooling： pooling 层
-- [ ] 全卷积层
-- Scale invariance
 
 RCNN [1], Fast RCNN [2], Faster RCNN [3], cascade RCNN 都是基于 region proposal 方法来进行目标检测。
 
@@ -45,10 +48,10 @@ RCNN 算法流程如下：
 - CNN 网络提取特征和有监督的训练：以往的目标检测算法一般都是提取人工设定的特征，本文采用神经网络的方法提取深度特征，并通过有监督的方法训练模型。
 
 
+**TODO**：
+- [ ] Selective Search
+- [ ] BBox Regression
 
-**Selective Search**
-
-**BBox Regression**
 
 #### **Fast RCNN**
 
@@ -62,7 +65,6 @@ Fast RCNN 算法流程如下：
 论文的贡献：
 - 一次性训练，使用多任务 loss，节省时间和资源：将之前的特征提取，类别判断和位置调整等过程整合在一个网络训练过程中。
 - 提出一个 RoI 层：SPP 是 pooling 成多个固定尺度，RoI 只 pooling 到单个固定的尺度。
-
 
 一些实验结果：
 - 网络末端同步训练的分类和位置调整，提升准确度
@@ -90,12 +92,22 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 - [6] [【目标检测】Fast RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51036677)
 - [7] [【目标检测】Faster RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51152614)
 - [8] [Scale invariance](https://en.wikipedia.org/wiki/Scale_invariance)
+- [9] [“知其然且知其所以然”之目标检测](https://aistudio.baidu.com/aistudio/projectdetail/2166507)
 
 
 
+<br>
+
+### SSD
+
+
+<br>
+
+### YOLO 系列
 
 ---
-### Speed/accuracy trade-offs for modern convolutional object detectors
+
+
 
 #### Architectural configuration
 - feature extractor
@@ -105,18 +117,11 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
     - Inception v3
     - Inception Resnet (v2)
     - MobileNet
-- number of proposals
-- Output stride settings for Resnet and Inception Resnet
-
-#### Loss function configuration
-- matching
-- box encoding
-- Location loss
 
 
 
 #### Analyses
-- Accuracy vs time: Faster R-CNN get better accuracy, but slower.
+
 - feature extractor: Resnet is quite good(pretrained model is better)
 - object size: larger easy to detect, faster rcnn do better in small object
 - image size: input resolution can significantly impact detection accuracy.

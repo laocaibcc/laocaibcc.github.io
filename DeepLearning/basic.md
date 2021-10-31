@@ -1,6 +1,8 @@
 ### Deep Learning
 
 
+<font color=red>预估时间：8h</font>
+
 
 #### 基础
 
@@ -22,31 +24,42 @@
 - 6.结果分析与模型改进
 
 
-常见的两个问题：过拟合和模型不收敛，
+深度学习基础知识：
+- [ ] 网络层基本知识：网络层通常是包含那些结构，每种结构是什么样的功能，要能够有深入的理解
+  - 激活函数
+  - pooling 层
+  - 卷积层
+  - batch_normalization
+- [ ] 网络结构：不同的网络结构，特征提取，泛化等能力会有所不同。
+- [ ] loss 函数：目标方程，目标方程的设计实际上是解决问题的核心因素
+- [ ] 一些训练技巧
+- [ ] 避免过拟合的方法
+- [ ] 提高模型泛化性能的常见方法
+
 
 #### 数据预处理
 
 
 #### 网络结构
 
+不同的网络结构比较：
+- Efficent net
+- resnet
+- dense net
+- inception net
 
 #### 损失函数
 
 
 #### 优化方法
 
-<font color=#FFOOOO>待处理</font>    
-non-saturating neurons：  
-backforward and forward 比较
-anchor  
-bouding box regression  
-hard mining  
-rpn  
-selective search  
-ensemble of classifiers  
-Transfer Learning  
+   
+- non-saturating neurons：  
+- backforward and forward 比较
+- hard mining
+- Transfer Learning  
+- Scale invariance
 
-</font>
 
 ---
 
@@ -91,7 +104,8 @@ pooling 的结果是使得特征减少，参数减少，但 pooling 的目的并
 
 **mean-pooling**  
 对邻域内特征点只求平均。假设pooling的窗大小是2x2, 在forward的时候，就是在前面卷积完的输出上依次不重合的取2x2的窗平均，得到一个值就是当前mean pooling之后的值。backward的时候，把一个值分成四等分放到前面2x2的格子里面就好了。
-```
+
+```sh
 forward: [1 3; 2 2] -> [2]
 backward: [2] -> [0.5 0.5; 0.5 0.5]
 ```
@@ -102,6 +116,7 @@ backward: [2] -> [0.5 0.5; 0.5 0.5]
 forward: [1 3; 2 2] -> 3
 backward: [3] -> [0 3; 0 0]
 ```
+
 据相关理论，特征提取的误差主要来自两个方面：   
 （1）邻域大小受限造成的估计值方差增大  
 （2）卷积层参数误差造成估计均值的偏移  
@@ -113,6 +128,9 @@ stochastic pooling方法非常简单，只需对feature map   中的元素按照
 
 
 #### Fully Connected
+
+- 全卷积层的作用
+
 After several convolutional and max pooling layers, the high-level reasoning in the neural network is done via fully connected layers. **Neurons in a fully connected layer have connections to all activations in the previous layer**, as seen in regular neural networks. Their activations can hence be computed with a matrix multiplication followed by a bias offset.  
 too many weights, waste time and memory, lead to overfiting  
 
