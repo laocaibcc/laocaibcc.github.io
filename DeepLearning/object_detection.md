@@ -29,8 +29,10 @@
 ### 1. Region Proposal 系列
 
 **待完成**
-- [ ] Selective Search
-- [ ] Bounding-box regression
+- [ ] Selective Search:
+- [ ] Bounding-box regression: 重要
+- [ ] ROI pooling：
+- [ ] RPN: 重要
 
 RCNN [1], Fast RCNN [2], Faster RCNN [3], cascade RCNN 都是基于 region proposal 方法来进行目标检测。
 
@@ -48,10 +50,23 @@ RCNN 算法流程如下：
 - CNN 网络提取特征和有监督的训练：以往的目标检测算法一般都是提取人工设定的特征，本文采用神经网络的方法提取深度特征，并通过有监督的方法训练模型。
 
 
-**TODO**：
-- [ ] Selective Search
-- [ ] BBox Regression
+**TODO**
+- [ ] Selective Search：
+- 测试分析：
+- 包括可行性能分析
 
+
+**Bounding box regression**
+- 方程（1）（2）中 dx，dy 分别乘以了 Pw 和 Ph，主要原因是 CNN 具有尺度不变性，为了确保不同尺度上的特征具有一致性，因此没有使用 x，y 的直接差，而是采用了宽高（Pw, Ph）的相对差。
+- 方程（3）（4）使用了指数形式，主要原因是尺度缩放必须是正数。
+- bbox 回归方程（5），目的是使用训练一组参数， Wx 尽可能的，使得
+- **疑问**：为什么IoU 比较小时，不容易收敛。
+
+<img src='resource/object_detection/img_01.png' height=120>
+<br>
+<img src='resource/object_detection/img_03.png' height=60>
+<br>
+<img src='resource/object_detection/img_02.png' height=110>
 
 #### **Fast RCNN**
 
@@ -61,6 +76,8 @@ Fast RCNN 算法流程如下：
 - 1.候选区域生成： 一张图像生成 1k-2k 个候选区域（采用Selective Search 方法）
 - 2.准备数据和金标训练网络：将特征提取，目标检测（包括分类）和 bbox 回归整合到一个网络结构中，进行训练。
 
+**TODO**
+- [ ] **ROI pooling**
 
 论文的贡献：
 - 一次性训练，使用多任务 loss，节省时间和资源：将之前的特征提取，类别判断和位置调整等过程整合在一个网络训练过程中。
@@ -76,11 +93,16 @@ Fast RCNN 算法流程如下：
 
 #### **Faster RCNN**
 
-Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区域生成整合到整个训练网络流程中，进一步简化了网络结构生成。
+Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区域生成整合到整个训练网络流程中，进一步简化了网络结构生成，基本实现了端到端的训练过程。
 
 算法流程如下：
 - 深度学习网络
 
+论文的贡献：
+- RPN 网络，实现了端到端的训练过程
+- 速度和准确性进一步提高
+
+**Regrion proposal network**
 
 
 参考资料：
@@ -93,6 +115,7 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 - [7] [【目标检测】Faster RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51152614)
 - [8] [Scale invariance](https://en.wikipedia.org/wiki/Scale_invariance)
 - [9] [“知其然且知其所以然”之目标检测](https://aistudio.baidu.com/aistudio/projectdetail/2166507)
+- [10] [边框回归(Bounding Box Regression)详解](https://blog.csdn.net/zijin0802034/article/details/77685438)
 
 
 

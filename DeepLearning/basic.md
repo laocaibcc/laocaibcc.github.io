@@ -42,6 +42,15 @@
 
 #### 网络结构
 
+基础：
+- 卷积层
+- pooling 层
+- batch normalization 层：
+- fully connected 层
+
+
+
+
 不同的网络结构比较：
 - Efficent net
 - resnet
@@ -53,7 +62,7 @@
 
 #### 优化方法
 
-   
+
 - non-saturating neurons：  
 - backforward and forward 比较
 - hard mining
@@ -100,22 +109,11 @@ pooling 的结果是使得特征减少，参数减少，但 pooling 的目的并
 > "[池化方法总结（Pooling）](https://blog.csdn.net/mao_kun/article/details/50507376)" - mao_kun 
 
 ##### Pooling 具体操作
-常用 pooling  操作有mean-pooling， max-pooling 和 Stochastic-pooling 等。  
-
-**mean-pooling**  
-对邻域内特征点只求平均。假设pooling的窗大小是2x2, 在forward的时候，就是在前面卷积完的输出上依次不重合的取2x2的窗平均，得到一个值就是当前mean pooling之后的值。backward的时候，把一个值分成四等分放到前面2x2的格子里面就好了。
-
-```sh
-forward: [1 3; 2 2] -> [2]
-backward: [2] -> [0.5 0.5; 0.5 0.5]
-```
-
-**max-pooling**  
-对邻域内特征点取最大。forward的时候你只需要把2x2窗子里面那个最大的拿走就好了，backward的时候你要把当前的值放到之前那个最大的位置，其他的三个位置都弄成0。
-```
-forward: [1 3; 2 2] -> 3
-backward: [3] -> [0 3; 0 0]
-```
+常用 pooling  操作有
+- mean-pooling：对邻域内特征点只求平均。
+- max-pooling：对邻域内特征点取最大。
+- Stochastic-pooling：对特征中的元素按照像素点数值大小赋予概率，然后按照概率值大小随机选择，即元素值大的被选中的概率也大。
+ 
 
 据相关理论，特征提取的误差主要来自两个方面：   
 （1）邻域大小受限造成的估计值方差增大  
@@ -124,7 +122,7 @@ backward: [3] -> [0 3; 0 0]
 
 **Stochastic-pooling**  
 介于两者之间，通过对像素点按照数值大小赋予概率，再按照概率进行亚采样，在平均意义上，与mean-pooling近似，在局部意义上，则服从max-pooling的准则。  
-stochastic pooling方法非常简单，只需对feature map   中的元素按照其概率值大小随机选择，即元素值大的被选中的概率也大。而不像max-pooling那样，永远只取那个最大值元素。
+stochastic pooling方法非常简单，只需对feature map 中的元素按照其概率值大小随机选择，即元素值大的被选中的概率也大。而不像max-pooling那样，永远只取那个最大值元素。
 
 
 #### Fully Connected

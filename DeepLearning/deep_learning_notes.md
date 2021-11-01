@@ -21,18 +21,6 @@
     - Convolution
 - Batch Normalization <font color=#FF0000>  
 
-<font color=#FFOOOO>待处理</font>    
-non-saturating neurons：  
-backforward and forward 比较
-anchor  
-bouding box regression  
-hard mining  
-rpn  
-selective search  
-ensemble of classifiers  
-Transfer Learning  
-
-</font>
 
 ---
 

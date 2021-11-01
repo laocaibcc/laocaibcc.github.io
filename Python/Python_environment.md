@@ -43,7 +43,7 @@ deactivate
 # 删除虚拟环境
 rm -r /path/to/venv
 
-# 安装项目依赖库
+# 虚拟环境中安装项目依赖库
 pip install python_lib
 pip install -r requirements.txt
 ```
