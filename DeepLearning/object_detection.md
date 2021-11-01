@@ -14,7 +14,7 @@
   - [ ] **Region Proposals系列**
     - [x] R-CNN
     - [x] Fast R-CNN
-    - [ ] Faster R-CNN
+    - [x] Faster R-CNN
   - [ ] **SSD**
   - [ ] **YOLO 系列**
   - RefineDet
@@ -30,7 +30,6 @@
 
 **待完成**
 - [ ] Selective Search:
-- [ ] Bounding-box regression: 重要
 - [ ] ROI pooling：
 - [ ] RPN: 重要
 
@@ -51,22 +50,21 @@ RCNN 算法流程如下：
 
 
 **TODO**
-- [ ] Selective Search：
-- 测试分析：
-- 包括可行性能分析
+- [ ] Selective Search
 
 
 **Bounding box regression**
 - 方程（1）（2）中 dx，dy 分别乘以了 Pw 和 Ph，主要原因是 CNN 具有尺度不变性，为了确保不同尺度上的特征具有一致性，因此没有使用 x，y 的直接差，而是采用了宽高（Pw, Ph）的相对差。
 - 方程（3）（4）使用了指数形式，主要原因是尺度缩放必须是正数。
-- bbox 回归方程（5），目的是使用训练一组参数， Wx 尽可能的，使得
-- **疑问**：为什么IoU 比较小时，不容易收敛。
+- 从方程 1-4 可以看出，dx, dy, dw, dh 是主要求得的未知量。因此，结合方程 6-9 可以确定 bbox 回归的目标方程为：（5）
+- 当 x → 0 时，有 *log(1+x)  = x*，因此 bbox 回归一般需要 IoU 较大时，才可以用线性回归模型解决该问题。
 
 <img src='resource/object_detection/img_01.png' height=120>
 <br>
-<img src='resource/object_detection/img_03.png' height=60>
-<br>
 <img src='resource/object_detection/img_02.png' height=110>
+<br>
+<img src='resource/object_detection/img_03.png' height=60>
+
 
 #### **Fast RCNN**
 
@@ -90,19 +88,23 @@ Fast RCNN 算法流程如下：
 - 网络直接输出各类概率(softmax)，比SVM分类器性能略好
 - 更多候选窗不能提升性能
 
-
 #### **Faster RCNN**
 
 Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区域生成整合到整个训练网络流程中，进一步简化了网络结构生成，基本实现了端到端的训练过程。
 
 算法流程如下：
-- 深度学习网络
+- 准备训练数据和金标
+- 深度学习网络训练，包括：region proposal, feature extraction, classification + bbox regression.
+- 测试验证结果
 
 论文的贡献：
-- RPN 网络，实现了端到端的训练过程
-- 速度和准确性进一步提高
+- RPN 的提出
+- 实现了端到端的训练过程，算法训练效率大大得到提高
+- 准确性进一步提高
 
 **Regrion proposal network**
+- 每个特征点取 k 个 anchor， anchor 的设定取决与 anchor size 和 scale ratio 有关，论文中 anchor size 为 （128, 256, 512） 3 个尺寸，scale ratio 为（1:1, 1:2, 2:1）
+- 对于标定
 
 
 参考资料：
@@ -112,7 +114,7 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 - [4] [RCNN- 将CNN引入目标检测的开山之作](https://zhuanlan.zhihu.com/p/23006190)
 - [5] [【目标检测】RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51066975#fn:1)
 - [6] [【目标检测】Fast RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51036677)
-- [7] [【目标检测】Faster RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51152614)
+- [7] [Faster R-CNN](https://zhuanlan.zhihu.com/p/24916624)
 - [8] [Scale invariance](https://en.wikipedia.org/wiki/Scale_invariance)
 - [9] [“知其然且知其所以然”之目标检测](https://aistudio.baidu.com/aistudio/projectdetail/2166507)
 - [10] [边框回归(Bounding Box Regression)详解](https://blog.csdn.net/zijin0802034/article/details/77685438)
