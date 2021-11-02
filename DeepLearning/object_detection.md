@@ -15,8 +15,8 @@
     - [x] R-CNN
     - [x] Fast R-CNN
     - [x] Faster R-CNN
-  - [ ] **SSD**
-  - [ ] **YOLO 系列**
+  - [ ] **SSD**：重要
+  - [ ] YOLO 系列
   - RefineDet
   - Retina-Net
   - Deformable convolutional networks 
@@ -133,6 +133,33 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 <br>
 
 ### SSD
+
+
+SSD 与 YOLO 的不同之处:
+- SSD 是卷积后直接检测，而 YOLO 是全连接后检测。
+
+算法的流程：
+- 1.网络结构
+- 2.损失函数（也就是目标方程）：
+- 3.训练流程：
+- 4.其他
+
+<center>
+<img src='resource/object_detection/img_06.png' height=300>
+</center>
+
+论文的贡献：
+- 1.多尺度特征图进行检测：浅层特征检测小物体，深层特征检测大物体。
+- 2.卷积预测检测结果，YOLO 是全连接预测检测结果。
+
+疑问：
+- feed-forward 卷积网络
+- back-forward 卷积网络
+
+参考资料：
+- [1] [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325)
+- [2] [目标检测|SSD原理与实现](https://zhuanlan.zhihu.com/p/33544892)
+
 
 
 <br>
