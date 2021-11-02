@@ -3,7 +3,6 @@
 ## SSH基础
 
 UPDATE: Nov.09, 2018<br>
-Author: laocai
 
 Content
 - 1.简介

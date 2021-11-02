@@ -11,7 +11,7 @@
   - SIFT 特征
   - HOG 特征
 - 神经网络方法
-  - [ ] **Region Proposals系列**
+  - [x] **Region Proposals系列**
     - [x] R-CNN
     - [x] Fast R-CNN
     - [x] Faster R-CNN
@@ -26,12 +26,13 @@
 
 <br>
 
-### 1. Region Proposal 系列
-
 **待完成**
 - [ ] Selective Search:
 - [ ] ROI pooling：
-- [ ] RPN: 重要
+- [ ] 线性回归和非线性回归
+
+
+### 1. Region Proposal 系列
 
 RCNN [1], Fast RCNN [2], Faster RCNN [3], cascade RCNN 都是基于 region proposal 方法来进行目标检测。
 
@@ -103,8 +104,17 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 - 准确性进一步提高
 
 **Regrion proposal network**
+
+<img src='resource/object_detection/img_04.png' height=90>
+
+- RPN 的 loss (公式 1)有两个：分类和 bbox 回归。这里的分类是二分类，即判断是否为物体，bbox 回归与 RCNN 中的 bbox 是一致的。实际上，RPN 得到的 bbox 坐标是基于 anchor（最大 IoU 的 anchor） 尺寸修正过的，这点与 selective search 是不同的。
 - 每个特征点取 k 个 anchor， anchor 的设定取决与 anchor size 和 scale ratio 有关，论文中 anchor size 为 （128, 256, 512） 3 个尺寸，scale ratio 为（1:1, 1:2, 2:1）
-- 对于标定
+- 正负样本选择：为了保证负类样本过多，每次计算 loss 的时候只选择一定数量的负样本进行训练，不会将所有负类样本加入其中导致因负类过多无法收敛。
+- anchor 样本的选择：
+  - 边缘相交的 anchor 去除;
+  - 正样本 anchor 选择： 与 GT 最大 IoU 的 anchor; IoU 大于一定阈值（0.7） 的 anchor。这样就是，一个 GT 可能会有多个对应的正样本 anchor。
+  - 负样本 anchor： 与任一 GT 的 IoU 小于一定阈值（0.3）。
+  - 测试的时候，基于 IoU 采用 nms 去重。
 
 
 参考资料：
@@ -120,7 +130,6 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 - [10] [边框回归(Bounding Box Regression)详解](https://blog.csdn.net/zijin0802034/article/details/77685438)
 
 
-
 <br>
 
 ### SSD
@@ -129,6 +138,46 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 <br>
 
 ### YOLO 系列
+
+
+#### YOLO
+从R-CNN到Fast R-CNN一直采用的思路是proposal+分类 （proposal 提供位置信息， 分类提供类别信息）精度已经很高，但是速度还不行。 YOLO提供了另一种更为直接的思路： 直接在输出层回归bounding box的位置和bounding box所属的类别(整张图作为网络的输入，把 Object Detection 的问题转化成一个 Regression 问题)
+
+算法流程：
+- 1.网络结构：增加了卷积层和全连接层来改善性能，
+- 2.损失函数：损失函数比较复杂，因为 YOLO 是检测和分类在一个网络中完成，因此损失函数会更加复杂。
+  - 1）第一项，
+- 3.训练流程：训练过程比较麻烦
+  - 1）预训练分类网络
+  - 2）训练检测网络
+- 4.其他
+
+<img src='resource/object_detection/img_05.png' height=280>
+
+TODO：
+- [ ] 如何得到 bbox 坐标的
+- [ ] 分类如何得到：
+
+
+
+#### YOLO v2
+
+#### YOLO v3
+
+#### YOLO v4
+
+
+
+参考资料：
+- [1] [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
+- [2] [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
+- [3] [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
+- [4] [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)
+- [] []()
+
+
+<br>
+
 
 ---
 

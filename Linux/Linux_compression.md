@@ -2,7 +2,7 @@
 ## Linux 打包压缩
 
 UPDATE: Apr.21 2019<br>
-Author: laocai
+
 
 ### 1. Linux下常见打包压缩工具
 

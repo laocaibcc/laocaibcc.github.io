@@ -1,6 +1,6 @@
-## Welcome to My Technology Sharing Pages
+## Technical Notes
 
-This pages aims to sharing technology, solution and so on.
+This pages aims to record my technical notes.
 
 
 
@@ -18,6 +18,7 @@ This pages aims to sharing technology, solution and so on.
 
 - [ ] 添加跳转目录
 - [ ] 添加结构
-- [ ] 增加文章
+- [ ] 增加rss
+- [ ] 如何可以被搜索到
 
 ### Support or Contact
