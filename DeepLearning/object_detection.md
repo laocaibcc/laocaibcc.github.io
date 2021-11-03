@@ -139,10 +139,13 @@ SSD 与 YOLO 的不同之处:
 - SSD 是卷积后直接检测，而 YOLO 是全连接后检测。
 
 算法的流程：
-- 1.网络结构
+- 1.网络结构：训练
 - 2.损失函数（也就是目标方程）：
 - 3.训练流程：
 - 4.其他
+
+
+
 
 <center>
 <img src='resource/object_detection/img_06.png' height=300>
