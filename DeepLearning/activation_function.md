@@ -30,6 +30,7 @@
 - Softmax
 - 其他
 
+<br>
 
 #### Sigmoid
 1844年（1845年发表） 就提出来了，经典的激活函数，但是目前使用的不太多。Sigmoid函数单调平滑可导，能够压缩输出数值，但Sigmoid函数左右两端饱和，梯度很小，容易导致梯度损失。除此之外，Sigmoid函数不是关于原点中心对称，函数中的幂运算也相对耗时。
@@ -38,10 +39,12 @@
 [//]:(sigma(x)=\frac{1}{1+e^{-x})
 
 <center>
-<img src="http://latex.codecogs.com/gif.latex?\sigma(x)=\frac{1}{1+e^{-x}}">
+<img src='resource/activation_function/img_07.svg' height=40>
 <br>
-<img src='resource/deep_learning_activation_function/img_01.png' height=200>
+<img src='resource/activation_function/img_01.png' height=200>
 </center>
+<br>
+
 
 #### Tanh
 与Sigmoid函数很类似，也是经典的激活函数。与Sigmoid函数相比，Tanh改进的地方是函数输出值关于原点中心对称。梯度损失和计算耗时的问题还是存在。
@@ -49,92 +52,82 @@
 [//]:(tanh(x)=\frac{(e^{x}-e^{-x})}{(e^{x}+e^{-x})})
 
 <center>
-<img src="http://latex.codecogs.com/gif.latex?\sigma(x)=\frac{1}{1+e^{-x}}">
+<img src='resource/activation_function/img_08.svg' height=40>
 <br>
-<img src='resource/deep_learning_activation_function/img_02.gif' height=220>
+<img src='resource/activation_function/img_02.gif' height=220>
 </center>
+<br>
+
 
 #### ReLU
 ReLU 在深度学习中应用，是由 *Xavier Glorot et al. 2011* 在 [Deep Sparse Rectifier Neural Networks](http://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf) 中提出，其在深度学习上的表现一举超过sigmoid和tanh，并如作者所言，成为一个里程碑，后续深度学习网络大多都采用ReLU作为激活函数。ReLU函数计算复杂度，负类部分置为0，能够稀疏参数，加快收敛速度（SGD），但同时也会导致部分神经元“坏死”，权重无法更新。除此之外，ReLU没有对数据进行幅度压缩，输出也不是关于原点对称。使用ReLU激活，需要小心调整学习率（SGD）。
-```math
-f(x) = \left\{\begin{matrix}
-0 \qquad if\, x < 0\\ 
-x \qquad if\, x\geqslant 0
-\end{matrix}\right.
-```
+
 <center>
-<img src='resource/deep_learning_activation_function/img_03.png' height=260>
+<img src='resource/activation_function/img_09.svg' height=20>
+<br>
+<img src='resource/activation_function/img_10.svg' height=220>
 </center>
+<br>
+
 
 #### Leaky ReLU, Parameteric ReLU(PReLU), Randomized leaky ReLU(RReLU),
 *Bing Xu et al. 2015* 在 [Empirical Evaluation of Rectified Activations in Convolutional Network](https://arxiv.org/abs/1505.00853) 对这几种激活函数进行了分析比较， 他们通过实验比较了这几种ReLU激活函数对分类网络的影响，改善的ReLU比原始ReLU得到的结果要更好，其中RReLU更胜一筹，但是这个结果不一定适用于其他数据集和网络。但可以肯定的是，ReLU并不是激活函数的终结，还会有更合适的激活函数出现。
 
 <center>
-<img src='resource/deep_learning_activation_function/img_04.png' height=230>
+<img src='resource/activation_function/img_04.png' height=230>
 </center>
 
 ##### Leaky ReLU
 *Maas et al., 2013* 在 [Rectifier Nonlinearities Improve Neural Network Acoustic Models](https://ai.stanford.edu/~amaas/papers/relu_hybrid_icml2013_final.pdf) 中首次提出，比较的结果并没有明显的改善，具体可以阅读原论文。
 
-```math
-f(x) = \left\{\begin{matrix}
-0.01x \quad \, if\, x < 0\\ 
-x \quad \quad \quad if\, x\geqslant 0
-\end{matrix}\right.
-```
-
+<center>
+<img src='resource/activation_function/img_11.svg' height=40>
+</center>
 
 ##### PReLU
 由 *Kaiming He et al. 2015* 在 [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](https://arxiv.org/abs/1502.01852) 中提出，作者指出这是深度学习算法识别准确率首次超过人类，具体内容可以参考原论文。
 
-```math
-f(y_{i}) = \left\{\begin{matrix}
-y_{i} \quad \quad if\, y_{i}> 0\\ 
-a_{i}y_{i} \quad \ if\, y_{i}\leq 0
-\end{matrix}\right.
-```
+<center>
+<img src='resource/activation_function/img_12.svg' height=40>
+</center>
 
 ##### RReLU
 据说是在 *Kaggle NDSB Competition* 中提出，训练时a随机（区间内），测试时取平均值。  
 
-```math
-
-y_{ji} = \left\{\begin{matrix}
-x_{ji} \quad \quad if\, x_{ji} \geqslant 0\\ 
-a_{ji}x_{ji} \quad if\, x_{ji} < 0
-\end{matrix}\right.
-
-a_{ji} \sim U(l, u), l<u \ and \ l,u\in [0, 1)
-```
-
+<center>
+<img src='resource/activation_function/img_13.png' height=55>
+</center>
 
 #### ELU
 *Djork-Arne Clevert et al. 2016* 在 [Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs)](https://arxiv.org/abs/1511.07289) 提出，在作者的实验中，ELU收敛速度与分类性能表现都更好。ELU缓解了神经元“坏死”的问题，从而能够加快收敛。
 
-```math
-f(x) = \left\{\begin{matrix}
-x \qquad \qquad \quad if\, x> 0\\
-\alpha(e^{x}-1) \quad \ \  if\, x\leq 0
-\end{matrix}\right.
-```
 <center>
-<img src='resource/deep_learning_activation_function/img_05.png' height=200>
+<img src='resource/activation_function/img_14.svg' height=40>
+<br>
+<img src='resource/activation_function/img_05.png' height=200>
 </center>
+<br>
+
 
 #### Maxout
 *Ian J. Goodfellow et al. 2013* 在 [Maxout Networks](https://arxiv.org/abs/1302.4389) 提出，作者在论文提到这种激活函数为了与 *dropout* 配合使用，效果不错。
-```math
-h_{i}(x) = \mathrm{max}\ z_{ij}
-```
+
+
+<center>
+<img src='resource/activation_function/img_16.png' height=35>
+</center>
+<br>
 
 
 #### Softmax
 softmax与上面的激活函数不同，一般用在网络最后一层，进行多分类。
 > "它能将一个含任意实数的K维向量“压缩”到另一个K维实向量中，使得每一个元素的范围都在(0,1)之间，并且所有元素的和为1。" - [Softmax function](https://en.wikipedia.org/wiki/Softmax_function)
 
-```math
-\sigma(z)_{j}=\frac{e^{z_{j}}}{\sum^{K}_{k=1}e^{z_{k}}} \qquad j=1, ..., K
-```
+<center>
+<img src='resource/activation_function/img_15.svg' height=45>
+</center>
+<br>
+
 
 #### 其他
 激活函数大概有几百多种，其他的一些激活函数如 SoftSign, SoftPlus等可以参考维基 "[Activation function](https://en.wikipedia.org/wiki/Activation_function)"，里面对这些激活函数做了简要的介绍。
@@ -159,23 +152,20 @@ loss 函数对x求导（也就是梯度），可以理解为`$\frac{\partial _{l
 ##### 如何选择激活函数？  
 通常，一个网络中尽量使用一种激活函数。哪种激活函数更好，目前并没有明确的定论。
 
-一般来说，可以先尝试ReLU，但是ReLU对学习率比较敏感，需要谨慎选择。
+一般来说，可以先尝试 ReLU，但是 ReLU 对学习率比较敏感，需要谨慎选择。
 另外，ReLU的改进版Leaky ReLU、 PReLU、 Maxout等也可以尝试一下，改善效果不确定。
 
-非要使用饱和类激活函数时，优先选择tanh，而不是sigmoid.
+非要使用饱和类激活函数时，优先选择 tanh，而不是 sigmoid.
 
+<br>
 
 #### 参考资料
-论文，书籍
 - [Deep Sparse Rectifier Neural Networks](http://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf)
 - [Empirical Evaluation of Rectified Activations in Convolutional Network](https://arxiv.org/abs/1505.00853)
 - [Rectifier Nonlinearities Improve Neural Network Acoustic Models](https://ai.stanford.edu/~amaas/papers/relu_hybrid_icml2013_final.pdf)
 - [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](https://arxiv.org/abs/1502.01852)
 - [Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs)](https://arxiv.org/abs/1511.07289)
 - [Maxout Networks](https://arxiv.org/abs/1302.4389)
-
-
-博客，维基
 - [Activation function](https://en.wikipedia.org/wiki/Activation_function)
 - [Sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function)
 - [Hyperbolic Tangent](http://mathworld.wolfram.com/HyperbolicTangent.html)

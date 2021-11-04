@@ -1,48 +1,24 @@
-### Deep Learning
+## 深度学习网络结构
 
 
 
-#### 深度学习开发的一般步骤
 
-深度学习的入门
-- 深度学习的整体流程
-- 各个模块的方法和数学原理
-- 针对不同任务的结合方法
+### 网络结构基础
 
-#### 模块简介
-
-##### 目录
-- 激活函数
-- 损失函数
-- 优化方法
-- 网络结构
-    - Pooling
-    - Fully Connected
-    - Convolution
-- Batch Normalization <font color=#FF0000>  
+- [ ] 卷积层
+- [ ] pooling 层
+- [ ] batch normalization
+- [ ] fully connected
+- [ ] 激活函数
 
 
----
+不同的网络结构比较：
+### 经典的网络结构
+- Efficent net
+- resnet
+- dense net
+- inception net
 
-### 优化方法（Optimization）
-
-如何选择优化方法？
-全局最优化，避免局部最优化
-
-常见的优化方法有：
-- SGD(stochastic gradient descent)
-- Momentum
-- Nesterov
-- Adagrad
-- Adadelta
-- RMSprop
-- Adam
-- Adamax
-- Nadam
-
-更多资料，可以参考：
-- [An overview of gradient descent optimization algorithms](http://ruder.io/optimizing-gradient-descent/)
-- [深度学习最全优化方法总结比较（SGD，Adagrad，Adadelta，Adam，Adamax，Nadam）](https://zhuanlan.zhihu.com/p/22252270)
 
 
 
