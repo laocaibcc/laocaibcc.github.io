@@ -1,6 +1,6 @@
 ## Technical Notes
 
-This pages aims to record my technical notes.
+This pages aims to record and share my technical notes.
 
 
 
@@ -13,6 +13,8 @@ This pages aims to record my technical notes.
   - [Linux 用户权限管理](https://laocaibcc.github.io/Linux/Linux_user_administration)
 - Algorithm
   - [排序算法](https://laocaibcc.github.io/Algorithm/sorting)
+- Deep Learning
+  - [激活函数](https://laocaibcc.github.io/DeepLearning/activation_function)
 
 #### TODO
 
