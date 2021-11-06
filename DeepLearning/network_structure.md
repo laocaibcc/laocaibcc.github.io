@@ -9,7 +9,7 @@
 - [ ] pooling 层
 - [ ] batch normalization
 - [ ] fully connected
-- [ ] 激活函数
+- [x] 激活函数
 
 
 不同的网络结构比较：
@@ -18,6 +18,12 @@
 - resnet
 - dense net
 - inception net
+- VGG
+- Resnet-101
+- Inception v2
+- Inception v3
+- Inception Resnet (v2)
+- MobileNet
 
 
 

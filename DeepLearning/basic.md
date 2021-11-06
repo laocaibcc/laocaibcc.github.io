@@ -34,6 +34,7 @@
 - **激活函数**
   - [x] 激活函数的定义和目的
   - [x] 常见的激活函数
+  - [ ] 不同激活函数之间的比较和疑问
 - **优化方法**
   - [ ] 常见的优化方法和数学原理 
 - **训练技巧**
@@ -42,11 +43,12 @@
   - [ ] 避免过拟合的常见方法
 - **泛化性**
 - **其他**
-  - backward and forward 比较
-  - Scale invariance
-  - hard mining
-  - Transfer Learning
-  - 数据预处理
+  - [ ] backward and forward 比较
+  - [ ] Scale invariance
+  - [ ] hard mining
+  - [ ] Transfer Learning
+  - [ ] 数据预处理
+  - [ ] 线性回归和非线性回归
 
 
 

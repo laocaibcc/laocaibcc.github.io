@@ -1,8 +1,6 @@
 
 ## 目标检测
 
-<font color=red>预估时间：6h</font>
-
 > 目标检测是利用计算机视觉和图像处理技术，检测数字图像或者视频中特定类型的语义物体。 - [1]
 
 方法分类：
@@ -15,7 +13,7 @@
     - [x] R-CNN
     - [x] Fast R-CNN
     - [x] Faster R-CNN
-  - [ ] **SSD**：重要
+  - [x] **SSD**
   - [ ] YOLO 系列
   - RefineDet
   - Retina-Net
@@ -28,8 +26,6 @@
 
 **待完成**
 - [ ] Selective Search:
-- [ ] ROI pooling：
-- [ ] 线性回归和非线性回归
 
 
 ### 1. Region Proposal 系列
@@ -52,7 +48,6 @@ RCNN 算法流程如下：
 
 **TODO**
 - [ ] Selective Search
-
 
 **Bounding box regression**
 - 方程（1）（2）中 dx，dy 分别乘以了 Pw 和 Ph，主要原因是 CNN 具有尺度不变性，为了确保不同尺度上的特征具有一致性，因此没有使用 x，y 的直接差，而是采用了宽高（Pw, Ph）的相对差。
@@ -93,28 +88,39 @@ Fast RCNN 算法流程如下：
 
 Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区域生成整合到整个训练网络流程中，进一步简化了网络结构生成，基本实现了端到端的训练过程。
 
-算法流程如下：
-- 准备训练数据和金标
-- 深度学习网络训练，包括：region proposal, feature extraction, classification + bbox regression.
-- 测试验证结果
+**论文梳理**：
+- 1.模型结构（介绍网络结构，不同之处及其作用，能说明原理最好）
+  - 1）提出了目标检测网络，Region Proposal Network），这是 Faster RCNN 最大的创新点，也是 RCNN 系列中第一次采用深度学习网络结构进行目标检测。
+  - 2）RPN 网络结构实际上是一个比较简单的网络结构，是根据。
+  - 3）anchor：anchor 是 RPN 中很重要的一点，每个特征点取 k 个 anchor， anchor 的设定取决与 anchor size 和 scale ratio 有关，论文中 anchor size 为 （128, 256, 512） 3 个尺寸，scale ratio 为（1:1, 1:2, 2:1）
+  - 3）网络结构如下图所示，左图为检测分类两个过程的网络结构，右图为候选框检测网络，RPN。
+<center>
+<img src='resource/object_detection/img_11.png' height=350>
+<img src='resource/object_detection/img_12.png' height=250>
+</center>
 
-论文的贡献：
-- RPN 的提出
-- 实现了端到端的训练过程，算法训练效率大大得到提高
-- 准确性进一步提高
+- 2.损失函数（明确损失函数，网络的输出）
+  - 1)RPN 的损失函数如公式（1）所示（在论文中，公式1实际上是整体的损失函数，但实际上这个公式也可以表示 RPN 的损失函数），包括两个部分：*L<sub>cls</sub>* 和 *L<sub>reg</sub>*
+  - 2）*L<sub>cls</sub>*：分类损失函数，采用是**交叉熵损失函数（待确认）**，这里采用的是二分类，即判断 box 中是否有物体。
+  - 3）*L<sub>reg</sub>*：box 回归损失函数，采用是 **smoothL1** 损失函数，该损失函数的目的是对从 anchor box 进行回归，以得到更加精准的 box 尺寸和位置。 公式（2）中，*x*, *x<sub>a</sub>*, *x<sup>*</sup>* 分别表示预测坐标， anchor box 坐标和金标。
+<center>
+<img src='resource/object_detection/img_04.png' height=95>
+<br>
+<img src='resource/object_detection/img_13.png' height=110>
+</center>
 
-**Regrion proposal network**
+- 3.训练方案
+  - 正负样本选择：为了保证负类样本过多，每次计算 loss 的时候只选择一定数量的负样本进行训练，不会将所有负类样本加入其中导致因负类过多无法收敛。
+  - anchor 选择：
+    - 边缘相交的 anchor 去除;
+    - 正样本 anchor 选择： 与 GT 最大 IoU 的 anchor; IoU 大于一定阈值（0.7） 的 anchor。这样就是，一个 GT 可能会有多个对应的正样本 anchor。
+    - 负样本 anchor： 与任一 GT 的 IoU 小于一定阈值（0.3）。
+    - 测试的时候，基于 IoU 采用 nms 去重。
+- 4.其他
 
-<img src='resource/object_detection/img_04.png' height=90>
-
-- RPN 的 loss (公式 1)有两个：分类和 bbox 回归。这里的分类是二分类，即判断是否为物体，bbox 回归与 RCNN 中的 bbox 是一致的。实际上，RPN 得到的 bbox 坐标是基于 anchor（最大 IoU 的 anchor） 尺寸修正过的，这点与 selective search 是不同的。
-- 每个特征点取 k 个 anchor， anchor 的设定取决与 anchor size 和 scale ratio 有关，论文中 anchor size 为 （128, 256, 512） 3 个尺寸，scale ratio 为（1:1, 1:2, 2:1）
-- 正负样本选择：为了保证负类样本过多，每次计算 loss 的时候只选择一定数量的负样本进行训练，不会将所有负类样本加入其中导致因负类过多无法收敛。
-- anchor 样本的选择：
-  - 边缘相交的 anchor 去除;
-  - 正样本 anchor 选择： 与 GT 最大 IoU 的 anchor; IoU 大于一定阈值（0.7） 的 anchor。这样就是，一个 GT 可能会有多个对应的正样本 anchor。
-  - 负样本 anchor： 与任一 GT 的 IoU 小于一定阈值（0.3）。
-  - 测试的时候，基于 IoU 采用 nms 去重。
+**论文贡献**
+- 1.RPN 结构的提出，让检测网络变得更加自动化。
+- 2.anchor 方法的提出，后续很多网络结构都借鉴了这种方案。
 
 
 参考资料：
@@ -134,35 +140,46 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 
 ### SSD
 
+SSD 算法，全称是 Single Shot MultiBox Detector，从名字可以知道该检测算法属于 one-stage 方法（Single Shot），并且是多框预测（MultiBox）。
 
-SSD 与 YOLO 的不同之处:
-- SSD 是卷积后直接检测，而 YOLO 是全连接后检测。
-
-算法的流程：
-- 1.网络结构：训练
-- 2.损失函数（也就是目标方程）：
-- 3.训练流程：
-- 4.其他
-
-
-
-
+**论文梳理**
+- 1.模型结构（介绍网络结构，不同之处及其作用，能说明原理最好）
+  - 1）SSD 网络在多尺度特征图上进行检测，这种结构对提高小物体的检出率有帮助（通常多次下采样之后的深层网络，小物体特征会损失）。
+  - 2）卷积预测检测结果：卷积网络和全连接网络相比，卷积网络会更小，参数更少，更不容易过拟合，更加高效。
+  - 3）不同尺度下，默认 box 尺寸不一样（实际上就是多尺度的 anchor）。对于不同尺度上的特征，被检测的尺寸是有范围的，因此需要事先计算好合适的尺寸和比例，以便能够更好的检测物体。
+  - 4）网络结构如下图所示
 <center>
 <img src='resource/object_detection/img_06.png' height=300>
 </center>
 
-论文的贡献：
-- 1.多尺度特征图进行检测：浅层特征检测小物体，深层特征检测大物体。
-- 2.卷积预测检测结果，YOLO 是全连接预测检测结果。
+- 2.损失函数（明确损失函数，网络的输出）
+  - 1）该模型的损失函数如公式（1）所示，包括两个部分： *L<sub>conf</sub>* 和 *L<sub>loc</sub>*
+  - 2）*L<sub>loc</sub>*：是 bbox 回归损失函数，如公式（2）所示，采用的是 *smoothL1* 损失函数（与 Faster RCNN 一致）。bbox 回归，本质上是将原先设定尺寸的 anchor box （通常是与金标接近，通过 IoU 等筛选得到）向着金标 bbox 进行回归，来得到更加准确的 bbox 尺寸和位置。
+  - 3）*L<sub>conf</sub>*：是分类损失函数，如公式（3）所示，采用的是交叉熵函数，其中预测概率 *c<sub>i</sub>* 是 softmax 后得到。
+  - 4）网络输出最终是：n（分类数目） + 4(box信息) 个参数。
+<center>
+<img src='resource/object_detection/img_07.png' height=50>
+<br>
+<img src='resource/object_detection/img_08.png' height=150>
+<br>
+<img src='resource/object_detection/img_09.png' height=65>
+</center>
 
-疑问：
-- feed-forward 卷积网络
-- back-forward 卷积网络
+- 3.训练方案（介绍该模型训练过程中的一些方法和策略）
+  - 1）匹配策略：选择多个 overlap 大于一定阈值（0.5）的预测结果作为正类（而不是像其他论文中只选择其中一个）。
+  - 2）对于默认 box，不同尺度特征层要选择合适的缩放比例和长宽比。公式（4）表示的是第 k 个特征层的缩放比。  <img src='resource/object_detection/img_10.png' height=45>
+  - 3）困难负类减少。实际训练过程中，需要产生的 bbox 多数都是负类。为避免数据不平衡，需要通过控制一定比例去减少负类样本参与到训练过程中。
+  - 4）数据增广。论文中用实验证明了数据增广比较重要。
+- 4.其他
+
+**论文贡献**
+- 1.多尺度特征图进行检测，能够有效的解决小尺寸物体的检测效果。
+- 2.不同尺度上，设置不同的默认 box 大小，能够更好的检测和回归box。
+
 
 参考资料：
 - [1] [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325)
 - [2] [目标检测|SSD原理与实现](https://zhuanlan.zhihu.com/p/33544892)
-
 
 
 <br>
@@ -203,33 +220,6 @@ TODO：
 - [2] [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
 - [3] [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
 - [4] [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)
-- [] []()
 
 
-<br>
-
-
----
-
-
-
-#### Architectural configuration
-- feature extractor
-    - VGG
-    - Resnet-101
-    - Inception v2
-    - Inception v3
-    - Inception Resnet (v2)
-    - MobileNet
-
-
-
-#### Analyses
-
-- feature extractor: Resnet is quite good(pretrained model is better)
-- object size: larger easy to detect, faster rcnn do better in small object
-- image size: input resolution can significantly impact detection accuracy.
-- number of proposals: more proposals, higher accuracy, 50 proposals can get quite high accuracy
-- FLOPs analysis: for denser block models such as Resnet 101, FLOPs/GPU time is typically greater than 1.
-- Memory analysis: larger and more powerful feature extractors requiring much more memory.
 
