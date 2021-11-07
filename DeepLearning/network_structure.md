@@ -6,6 +6,7 @@
 ### 网络结构基础
 
 - [ ] 卷积层
+- [ ] transposed conv
 - [ ] pooling 层
 - [ ] batch normalization
 - [ ] fully connected
@@ -100,4 +101,10 @@ too many weights, waste time and memory, lead to overfiting
 >[论文笔记：Batch Normalization](http://jermmy.xyz/2017/09/02/2017-9-2-paper-notes-batch-normalization/) - Jermmy  
 
 
+
+
+### Transposed Convolution
+
+参考资料：
+- [1] [What is Transposed Convolutional Layer?](https://towardsdatascience.com/what-is-transposed-convolutional-layer-40e5e6e31c11)
 

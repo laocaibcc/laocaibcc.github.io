@@ -26,6 +26,7 @@
 
 **待完成**
 - [ ] Selective Search:
+- [ ] RCNN 与 Fast RCNN 需要重新梳理
 
 
 ### 1. Region Proposal 系列
@@ -90,10 +91,12 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 
 **论文梳理**：
 - 1.模型结构（介绍网络结构，不同之处及其作用，能说明原理最好）
-  - 1）提出了目标检测网络，Region Proposal Network），这是 Faster RCNN 最大的创新点，也是 RCNN 系列中第一次采用深度学习网络结构进行目标检测。
-  - 2）RPN 网络结构实际上是一个比较简单的网络结构，是根据。
-  - 3）anchor：anchor 是 RPN 中很重要的一点，每个特征点取 k 个 anchor， anchor 的设定取决与 anchor size 和 scale ratio 有关，论文中 anchor size 为 （128, 256, 512） 3 个尺寸，scale ratio 为（1:1, 1:2, 2:1）
-  - 3）网络结构如下图所示，左图为检测分类两个过程的网络结构，右图为候选框检测网络，RPN。
+  - 1）提出了目标检测网络，RPN（Region Proposal Network），这是 Faster RCNN 最大的创新点，也是 RCNN 系列中第一次采用深度学习网络进行目标检测。
+  - 2）RPN 网络结构比较简单，结合 ZF 或 VGG 进行了一定调整。
+  - 3）anchor：anchor 是 RPN 中很重要的一点，在特征图上，每个特征点会取一定数量的 anchor 来代表初始的检测框，anchor 的大小和数量与 anchor size 和 scale ratio 有关，论文中 anchor size 为 （128, 256, 512） 3 个尺寸，scale ratio 为（1:1, 1:2, 2:1） 3个比例。
+  - 4）anchor 的平移不变性：**平移不变性的数学原理？？**？由于具有平移不变性，目标移动后，anchor box 平移后依然适用移动后的物体，不需要重新生成新的 anchor box，因此生成的候选 box 会更少。这样，网络的参数也会更少，更不容易在小数据集上过拟合。
+  - 5）多尺度 anchor 回归：在多个尺度上计算 anchor box，但是在一个特征图上进行 anchor 回归。
+  - 6）网络结构如下图所示，左图为检测分类两个过程的网络结构，右图为候选框检测网络，RPN。
 <center>
 <img src='resource/object_detection/img_11.png' height=350>
 <img src='resource/object_detection/img_12.png' height=250>
@@ -101,8 +104,8 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 
 - 2.损失函数（明确损失函数，网络的输出）
   - 1)RPN 的损失函数如公式（1）所示（在论文中，公式1实际上是整体的损失函数，但实际上这个公式也可以表示 RPN 的损失函数），包括两个部分：*L<sub>cls</sub>* 和 *L<sub>reg</sub>*
-  - 2）*L<sub>cls</sub>*：分类损失函数，采用是**交叉熵损失函数（待确认）**，这里采用的是二分类，即判断 box 中是否有物体。
-  - 3）*L<sub>reg</sub>*：box 回归损失函数，采用是 **smoothL1** 损失函数，该损失函数的目的是对从 anchor box 进行回归，以得到更加精准的 box 尺寸和位置。 公式（2）中，*x*, *x<sub>a</sub>*, *x<sup>*</sup>* 分别表示预测坐标， anchor box 坐标和金标。
+  - 2）*L<sub>cls</sub>*：分类损失函数，采用的是交叉熵损失函数（适用于二分类，多分类就是对数损失），这里采用的是二分类，即判断 box 中是否有物体。
+  - 3）*L<sub>reg</sub>*：box 回归损失函数，采用是 smoothL1 损失函数（Fast RCNN中），该损失函数的目的是对从 anchor box 进行回归，以得到更加精准的 box 尺寸和位置。 公式（2）中，*x*, *x<sub>a</sub>*, *x<sup>*</sup>* 分别表示预测坐标， anchor box 坐标和金标。
 <center>
 <img src='resource/object_detection/img_04.png' height=95>
 <br>
