@@ -65,6 +65,7 @@ UPDATE: Nov.09 2021
 - [6] [Jensen–Shannon divergence](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence)
 - [7] [NIPS 2018 入选论文：对深度半监督学习算法的现实评价](https://bbs.cvmart.net/articles/650)
 - [8] [图像分类最新技术综述论文: 21 种半监督、自监督和无监督学习方法一较高低](https://bbs.cvmart.net/articles/1551)
+- [9] [半监督学习在cv中的简述](http://kakack.github.io/2020/09/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E5%9C%A8CV%E4%B8%AD%E7%9A%84%E7%AE%80%E8%BF%B0/)
 
 
 <br>
@@ -114,17 +115,20 @@ Temporal Ensembling
 #### Mean Teachers
 
 - 1.模型结构
-  - 1）Mean teacher 是基于 Temporal Ensembling 的改进版，Mean Teachers 采用了对 studen net 模型权重进行 EMA
-  - 2）在每次训练迭代中，当前模型预测结果通过 EMA（exponential moving averag，指数滑动平均） 方法被累加到整体输出中 *y<sub>ema</sub> = α\*y<sub>ema</sub> + (1-α)\*y*. 
+  - 1）Mean teacher 是基于 Temporal Ensembling 的改进版，Mean Teachers 采用了两个模型：teacher 模型和 student 模型。
+  - 2）student 模型是有 dropput 的常规模型，而 teacher 模型与 student 模型具有相同的结构，但其权重是对 student 模型的权重进行 EMA 计算得到的，计算公式如下面公式所示。
   - 3）Temporal Ensembling 模型结构如下图所示：
 <center>
-<img src='resource/semi-supervised_learning/img_08.png' height=320>
-<br>
 <img src='resource/semi-supervised_learning/img_09.png' height=40>
+<br>
+<img src='resource/semi-supervised_learning/img_08.png' height=320>
 </center>
 
 - 2.损失函数
-  - Temporal Ensembling 的损失函数与 Pi-Model 类似，其中两次预测之间（无标签）的一致性损失函数是 MSE，有标签的损失函数是交叉熵（cross entropy）。
+  - Mean Teacher 的损失函数与 Temporal Ensembling 类似，其中一致性损失计算的是 teacher 和 student 之间的差别，如下面公式所示，采用的是 MSE，有监督的损失函数是 student 网络和标签之间的交叉熵（cross entropy）损失函数。
+<center>
+<img src='resource/semi-supervised_learning/img_15.png' height=50>
+</center>
 
 - 3.训练方法
 
@@ -172,6 +176,12 @@ Temporal Ensembling
 
 #### Virtual Adversarial Training
 
+- 1.模型结构
+- 2.损失函数
+- 3.训练过程
+- 4.其他
+
+
 参考资料：
 - [1] [Virtual Adversarial Training: A Regularization Method for Supervised and Semi-Supervised Learning](https://arxiv.org/abs/1704.03976)
 
@@ -179,6 +189,8 @@ Temporal Ensembling
 
 
 #### PseudoLabeling
+
+- 论文思想：Pseudo-Labeling 就是一个可以提供伪标签的算法。简而言之, 就是对于无标签数据, 根据模型已经生成的预测选一些置信度比较高的预测并将这些预测作为伪标签训练无标注数据。
 
 参考资料：
 - [1] [Pseudo-Label: The Simple and Efficient Semi-Supervised Learning Method for Deep Neural Networks](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.664.3543)
@@ -188,7 +200,58 @@ Temporal Ensembling
 
 #### Entropy Minimization
 
+- 1.模型结构
+  - 1）Ent Min 算法核心思想是：模型越稳定，模型的预测所包含的不确定度就越小，也就是熵越小。因此，最小化熵，能够让模型趋于稳定，等价于在低密度区域寻找分界线。
+- 2.损失函数：
+  - 1）最小化熵，其正则化损失函数如下所示：
+<center>
+<img src='resource/semi-supervised_learning/img_16.png' height=55>
+</center>
+
+- 3.训练过程
+- 4.其他
 
 参考资料：
 - [1] [Semi-supervised Learning by Entropy Minimization](https://proceedings.neurips.cc/paper/2004/file/96f2b50b5d3613adf9c27049b2a888c7-Paper.pdf)
+
+<br>
+
+#### Mix Match
+
+SSL 中 3 种常见的正则化方法：
+- 1）一致性正则化（Consistency Regularization）
+- 2）最小化熵（Entropy Minimization）
+- 3）传统正则化（Traditional Regularization）：监督学习中常用的正则化方法，比如 L2 正则化。
+
+Mixup 方法：从训练数据中任意抽样两个样本，构造混合样本和混合标签，作为新的增广数据。
+<center>
+<img src='resource/semi-supervised_learning/img_17.svg' height=45>
+</center>
+
+MixMatch 思路：
+
+
+- 1.模型结构
+  - 1）模型结构如下所示：
+<center>
+<img src='resource/semi-supervised_learning/img_19.png' height=150>
+</center>
+
+- 2.损失函数
+  - 1）损失函数如下所示：
+<center>
+<img src='resource/semi-supervised_learning/img_18.png' height=130>
+</center>
+
+- 3.训练过程
+- 4.其他
+
+
+
+
+参考资料：
+- [1] [MixMatch: A Holistic Approach to Semi-Supervised Learning](https://arxiv.org/abs/1905.02249)
+- [2] [超强半监督学习 MixMatch](https://zhuanlan.zhihu.com/p/66281890)
+
+
 
