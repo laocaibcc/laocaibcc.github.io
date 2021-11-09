@@ -1,12 +1,7 @@
 
 ## 半监督学习（Semi-supervised Learning）
 
-
-半监督学习方法训练的流程：
-- [ ] 原理
-- [ ] 算法流程
-- [ ] 常见的方法和网络结构
-- [ ] 结果表现
+UPDATE: Nov.09 2021
 
 ### 简介
 
@@ -68,6 +63,8 @@
 - [4] [Mean squared error](https://en.wikipedia.org/wiki/Mean_squared_error)
 - [5] [Kullback–Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
 - [6] [Jensen–Shannon divergence](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence)
+- [7] [NIPS 2018 入选论文：对深度半监督学习算法的现实评价](https://bbs.cvmart.net/articles/650)
+- [8] [图像分类最新技术综述论文: 21 种半监督、自监督和无监督学习方法一较高低](https://bbs.cvmart.net/articles/1551)
 
 
 <br>
@@ -111,6 +108,8 @@ Temporal Ensembling
 参考资料：
 - [1] [Temporal Ensembling for Semi-Supervised Learning](https://openreview.net/forum?id=BJ6oOfqge&noteId=BJ6oOfqge)
 
+<br>
+
 
 #### Mean Teachers
 
@@ -132,13 +131,64 @@ Temporal Ensembling
 参考资料：
 - [1] [Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results](https://arxiv.org/abs/1703.01780)
 
+<br>
+
 
 #### UDA
 
-Unsupervised Data Augmentation for Consistency Training
-  - UDA 证明了针对性的数据增强效果明显优于无针对性的数据增强，
-- 测试分析
+- 1.模型结构
+  - 1）UDA 的核心思想是对未标记数据采用更多样化，更真实的数据增强，UDA 证明了针对性的数据增强效果明显优于无针对性的数据增强。
+  - 2）UDA 针对不同的任务和实际场景，会选择不同的数据增强方式。
+  - 3）UDA 的模型结构如下图所示：
+<center>
+<img src='resource/semi-supervised_learning/img_10.png' height=240>
+</center>
 
-Proxy-label Methods
+- 2.损失函数
+  - 1）UDA 的损失函数如公式（2）所示，包括两部分：有标签的损失函数（交叉熵）和无标签的一致性损失函数。
+  - 2）UDA 的无标签损失函数如公式（1）所示，采用的是 KL 散度。
+<center>
+<img src='resource/semi-supervised_learning/img_12.png' height=40>
+<br>
+<img src='resource/semi-supervised_learning/img_11.png' height=40>
+</center>
 
+- 3.训练方法
+  - 1）有监督的损失函数，当某一类的准确率大于某个阈值后，不再计算其损失函数，因此有标签的损失函数调整为下面公式
+  - 2）训练过程中，无标签数据和有标签数据的比例，是按照退火方式逐渐增加，比例增加的方式有三种，如下面曲线图所示
+<center>
+<img src='resource/semi-supervised_learning/img_13.png' height=55>
+<br>
+<img src='resource/semi-supervised_learning/img_14.png' height=260>
+</center>
+
+- 4.其他
+
+参考资料：
+- [1] [Unsupervised Data Augmentation for Consistency Training](https://arxiv.org/abs/1904.12848v2)
+
+<br>
+
+
+#### Virtual Adversarial Training
+
+参考资料：
+- [1] [Virtual Adversarial Training: A Regularization Method for Supervised and Semi-Supervised Learning](https://arxiv.org/abs/1704.03976)
+
+<br>
+
+
+#### PseudoLabeling
+
+参考资料：
+- [1] [Pseudo-Label: The Simple and Efficient Semi-Supervised Learning Method for Deep Neural Networks](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.664.3543)
+
+<br>
+
+
+#### Entropy Minimization
+
+
+参考资料：
+- [1] [Semi-supervised Learning by Entropy Minimization](https://proceedings.neurips.cc/paper/2004/file/96f2b50b5d3613adf9c27049b2a888c7-Paper.pdf)
 
