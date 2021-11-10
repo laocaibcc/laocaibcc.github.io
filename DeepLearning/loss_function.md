@@ -8,7 +8,6 @@ TODO
 
 
 
-
 ### 简介
 
 > 损失函数是指一种将一个事件（在一个样本空间中的一个元素）映射到一个表达与其事件相关的经济成本或机会成本的实数上的一种函数，借此直观表示的一些"成本"与事件的关联。 - [1]
@@ -31,14 +30,13 @@ TODO
 
 常见的损失函数有：
 - 0-1 损失函数
-- L1 loss：MAE（Mean Absolute Error）：也称 
-- L2 loss：MSE（）
-- Smooth L1 loss
+- L1 loss（MAE，Mean Absolute Error）：绝对值误差
+- L2 loss（MSE，Mean Sqaure Error）：平方误差
+- Smooth L1 loss：平滑的 L1 损失
 - log 损失函数
-- 平方损失函数
-- 指数损失函数
+- 指数损失函数：
 - Hinge损失函数
-- 交叉熵损失函数
+- 交叉熵损失函数：
 - focal loss
 - 感知损失
 - dice
@@ -72,7 +70,7 @@ TODO
 - [2] [【深度学习】一文读懂机器学习常用损失函数（Loss Function）](https://cloud.tencent.com/developer/article/1165263)
 - [3] [深入理解L1、L2正则化](https://www.cnblogs.com/zingp/p/10375691.html#_label3)
 - [4] [一文看尽深度学习中的各种损失函数](https://bbs.cvmart.net/articles/4879)
-
+- [5] [三要素之策略-损失函数](https://kangcai.github.io/2018/11/21/ml-overall-6-strategy-loss/)
 
 一般步骤：
 - loss 的定义
