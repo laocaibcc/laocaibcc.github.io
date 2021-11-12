@@ -128,6 +128,29 @@ U-Net 发表于 2015 年，是一种全卷积网络，U-Net 的初衷是为了�
 #### VNet
 
 
+**论文梳理**
+- 1.模型结构
+  - 1）VNet 的网络结构和 UNet 很相似，不同之处是用了 3D 卷积和 residual block，对 UNet 进行了改进。
+  - 2）VNet 网络结构如下所示
+<center>
+<img src='resource/image_segmentation/img_10.png' height=500>
+<br>
+<img src='resource/image_segmentation/img_11.png' height=200>
+</center>
+
+- 2.损失函数
+  - 1）DICE 损失函数，应用于分割
+<center>
+<img src='resource/image_segmentation/img_12.png' height=60>
+</center>
+
+- 3.训练方案
+- 4.其他
+
+**论文贡献**
+- 1.分割任务中，提出了一个新的损失函数：DICE
+
+
 参考资料：
 - [1] [V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation](https://arxiv.org/abs/1606.04797v1)
 
