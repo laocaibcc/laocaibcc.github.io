@@ -3,27 +3,39 @@
 
 ### 0. 简介
 
-> 在计算机科学中，查找算法是在大量数据中查找某一特定数据的算法。 - [1]
+栈和队列是计算机科学中很常见的两种数据结构，栈和队列本质上都是一种线性表。
 
-查找，是计算机中最常见的操作之一。数据的增删改查，往往都会伴随查找操作。最常见的查找算法就是顺序查找（也称线性查找），但顺序查找的效率较低，时间复杂度较高。
+### 栈
 
-一般来说，为了提高查找效率，会采用某些数据结构，将数据变得有序，这样便可以使用更为高效的查找算法来降低查找的时间复杂度。比如，二分查找，适用于排序后的数组等结构。
+> 栈是计算机科学中的一种抽象资料类型，只允许在有序的线性资料集合的一端进行加入数据和移除数据的运算。因而按照后进先出（LIFO, Last In First Out）的原理运作。 - [1]
 
-根据查找的性质不同，可以分为：静态查找与动态查找。
+栈常用一维数组或链表来实现。
+
+<center>
+<img src='resource/stack_queue/img_01.png' height=300>
+</center>
+
 <br>
 
 
+### 队列
 
+> 队列，计算机科学中的一种抽象资料型别，是先进先出（FIFO, First-In-First-Out）的线性表。在具体应用中通常用链表或者数组来实现。队列只允许在后端进行插入操作，在前端进行删除操作。 - [2]
+
+<center>
+<img src='resource/stack_queue/img_02.svg' height=200>
+</center>
 
 
 ### 分析总结
 
 TODO
-- [ ] 分析不同排序方法的特点与适用范围等
+- [ ] 分析栈和队列的应用范围。
 
 
 参考资料：
-- [11] [Hash table](https://en.wikipedia.org/wiki/Hash_table)
+- [1] [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type))
+- [2] [Queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type))
 
 
 
