@@ -25,11 +25,8 @@
 - Inception v3
 - Inception Resnet (v2)
 - MobileNet
-
-
-
-SE layer
-FEM layer
+- SE layer
+- FEM layer
 
 
 
@@ -39,23 +36,19 @@ FEM layer
 pooling 的结果是使得特征减少，参数减少，但 pooling 的目的并不仅在于此。pooling 目的是为了保持某种不变性（旋转、平移、伸缩等）。
 
 常见的几种 Pooling 方法:
-- **General Pooling**
-- **Overlapping Pooling**
-- **Spatial Pyramid Pooling**
+- General Pooling：
+- Overlapping Pooling：
+- Spatial Pyramid Pooling：
+
+常见的 pooling 操作：
+- mean-pooling
+- max-pooling
+- Stochastic-pooling
+
 
 更加详细的可以参考：
 > "[池化方法总结（Pooling）](https://blog.csdn.net/mao_kun/article/details/50507376)" - mao_kun 
 
-##### Pooling 具体操作
-常用 pooling  操作有mean-pooling， max-pooling 和 Stochastic-pooling 等。  
-
-
-**max-pooling**  
-对邻域内特征点取最大。forward的时候你只需要把2x2窗子里面那个最大的拿走就好了，backward的时候你要把当前的值放到之前那个最大的位置，其他的三个位置都弄成0。
-```
-forward: [1 3; 2 2] -> 3
-backward: [3] -> [0 3; 0 0]
-```
 
 #### Fully Connected
 
@@ -97,4 +90,15 @@ backward: [3] -> [0 3; 0 0]
 
 参考资料：
 - [1] [What is Transposed Convolutional Layer?](https://towardsdatascience.com/what-is-transposed-convolutional-layer-40e5e6e31c11)
+
+
+
+### 经典的网络结构
+
+- VGG
+- ResNet
+- Dense Net
+- Inception Net
+- SE layer
+
 

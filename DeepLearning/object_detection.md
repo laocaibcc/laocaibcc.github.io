@@ -37,25 +37,30 @@ RCNN [1], Fast RCNN [2], Faster RCNN [3], cascade RCNN 都是基于 region propo
 ### **RCNN**
 RCNN 将 CNN 方法引入目标检测领域， 大大提高了目标检测效果，可以说改变了目标检测领域的主要研究思路。后续的 Fast RCNN, Faster RCNN 等都是该系列文章。
 
-RCNN 算法流程如下：
-- 1.候选区域生成： 一张图像生成1K~2K个候选区域（采用Selective Search 方法）
-- 2.特征提取： 对每个候选区域，使用深度卷积网络提取特征（CNN）
-- 3.类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类
-- 4.位置精修： 使用回归器精细修正候选框位置
-
-论文的贡献：
-- 速度：一般的目标检测方法是采用滑动窗口法来判断所有可能的区域，本文采用 Selective Search 方法预先提取一系列较可能是物体的候选区域。
-- CNN 网络提取特征和有监督的训练：以往的目标检测算法一般都是提取人工设定的特征，本文采用神经网络的方法提取深度特征，并通过有监督的方法训练模型。
 
 
-**TODO**
-- [ ] Selective Search
+**论文梳理**
+- 1.模型结构
+  - RCNN 的算法流程
+    - 1）候选区域生成： 一张图像生成 1K~2K 个候选区域（采用 Selective Search 方法）
+    - 2）特征提取： 对每个候选区域，使用深度卷积网络提取特征（CNN），尝试的网络结构有：O-Net，T-Net。特征提取的 CNN 网络实际也是进行了训练，正负样本分别为是否包含物体（IoU > 0.5 即为正样本），由于 CNN 容易过拟合，而多分类的数据较少，因此本文中没有直接利用 CNN 网络进行分类，而是采用了 SVM 进行分类。
+    - 3）类别判断： 特征送入每一类的 SVM 分类器，判别是否属于该类。本文中使用的是 Linear SVM。
+    - 4）位置精修： 使用回归器修正候选框位置（bbox regression）
+  - RCNN 的流程图 
+<center>
+<img src='resource/object_detection/img_17.png' height=180>
+</center>
 
-**Bounding box regression**
-- 方程（1）（2）中 dx，dy 分别乘以了 Pw 和 Ph，主要原因是 CNN 具有尺度不变性，为了确保不同尺度上的特征具有一致性，因此没有使用 x，y 的直接差，而是采用了宽高（Pw, Ph）的相对差。
-- 方程（3）（4）使用了指数形式，主要原因是尺度缩放必须是正数。
-- 从方程 1-4 可以看出，dx, dy, dw, dh 是主要求得的未知量。因此，结合方程 6-9 可以确定 bbox 回归的目标方程为：（5）
-- 当 x → 0 时，有 *log(1+x)  = x*，因此 bbox 回归一般需要 IoU 较大时，才可以用线性回归模型解决该问题。
+- 2.损失函数
+- 3.训练方案
+- 4.其他
+  - 1）对每个候选区域，使用 CNN 提取特征前，会先将原始候选框变大(各向异性缩放，也就是原有目标区域的长宽比变了)，增加一定的 margin（p=16），以便目标区域中能有一定的背景信息。之后，会将目标区域统一缩放至 227×227 大小。
+  - 2）hard negtive mining
+  - 3）Bounding box regression
+    - 方程（1）（2）中 dx，dy 分别乘以了 Pw 和 Ph，这样可以保证尺寸缩放不变性（在数据增广中，肯定会出现不同的缩放情况，如果采用直接差，缩放前后，直接差是不相等的，无法保证尺寸缩放不变性）。
+    - 方程（3）（4）使用了指数形式，这样能够保证尺度缩放一定是正数。
+    - 从方程 1-4 可以看出，dx, dy, dw, dh 是主要求得的未知量。因此，结合方程 6-9 可以确定 bbox 回归的目标方程为：（5）
+    - 当 x → 0 时，有 *log(1+x)  = x*，因此 bbox 回归一般需要 Pw 和 Gw 比较接近时，才可以用线性回归模型解决该问题。
 
 <center>
 <img src='resource/object_detection/img_01.png' height=120>
@@ -65,19 +70,33 @@ RCNN 算法流程如下：
 <img src='resource/object_detection/img_03.png' height=60>
 </center>
 
+**论文贡献**：
+- 速度：一般的目标检测方法是采用滑动窗口法来判断所有可能的区域，本文采用 Selective Search 方法预先提取一系列较可能是物体的候选区域。
+- CNN 网络提取特征和有监督的训练：以往的目标检测算法一般都是提取人工设定的特征，本文采用神经网络的方法提取深度特征，并通过有监督的方法训练模型。
+
+参考资料：
+- [1] [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)
+- [2] [RCNN- 将CNN引入目标检测的开山之作](https://zhuanlan.zhihu.com/p/23006190)
+- [3] [【目标检测】RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51066975#fn:1)
+- [4] [Object Detection with Discriminatively Trained Part Based Models](https://cs.brown.edu/people/pfelzens/papers/lsvm-pami.pdf)
+- [5] [边框回归(Bounding Box Regression)详解](https://blog.csdn.net/zijin0802034/article/details/77685438)
+
+<br>
+
+
 ### **Fast RCNN**
 
 Fast RCNN 是基于 RCNN 网络的改进，进一步简化了算法训练的流程，提高算法运行速度和表现。
 
 Fast RCNN 算法流程如下：
 - 1.候选区域生成： 一张图像生成 1k-2k 个候选区域（采用Selective Search 方法）
-- 2.准备数据和金标训练网络：将特征提取，目标检测（包括分类）和 bbox 回归整合到一个网络结构中，进行训练。
+- 2.物体检测分类模型：将特征提取，类别判断和 bbox 回归整合到一个网络结构中，训练 CNN 模型。
 
 
 **论文梳理**
 - 1.模型结构：Fast RCNN 将 RCNN 中的特征提取，物体分类和bbox回归整合到一个网络中。
   - 1）网络结构：整张图像和候选框 - 多个卷积层 - RoI pooling 层 - 全连接层 - 分类输出和bbox回归输出（都有全连接层）。
-  - 2）RoI pooling 层：本质上是为了将不同尺寸的 RoI 特征转换为相同的特征图输出，保证特征图展开（flatten）后具有相同的大小尺寸，能够与下层的全连接层连接。
+  - 2）RoI pooling 层：本质上是为了将不同尺寸的 RoI 特征转换为相同的特征图输出，保证特征图展开后具有相同的大小尺寸，能够与下层的全连接层连接。
     - i.根据输入 image，将 ROI 映射到 feature map 对应位置；
     - ii.将映射后的区域划分为相同大小的 sections（sections 数量与输出的维度相同）；
     - iii.对每个 sections 进行 max pooling 操作；
@@ -98,7 +117,6 @@ Fast RCNN 算法流程如下：
 
 - 3.训练方案
 - 4.其他
-
 
 **论文贡献**：
 - 1.one stage：Fast RCNN 将特征提取，类别判断和位置调整过程整合成一个网络，使用多任务 loss，节省时间和资源。
@@ -160,22 +178,17 @@ Faster RCNN 是基于 Fast RCNN 网络的进一步改进，该网络将候选区
 - 1.RPN 结构的提出，让检测网络变得更加自动化。
 - 2.anchor 方法的提出，后续很多网络结构都借鉴了这种方案。
 
-
 参考资料：
-- [1] [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)
-- [3] [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497)
-- [4] [RCNN- 将CNN引入目标检测的开山之作](https://zhuanlan.zhihu.com/p/23006190)
-- [5] [【目标检测】RCNN算法详解](https://blog.csdn.net/shenxiaolu1984/article/details/51066975#fn:1)
-- [7] [Faster R-CNN](https://zhuanlan.zhihu.com/p/24916624)
-- [8] [Scale invariance](https://en.wikipedia.org/wiki/Scale_invariance)
-- [9] [“知其然且知其所以然”之目标检测](https://aistudio.baidu.com/aistudio/projectdetail/2166507)
-- [10] [边框回归(Bounding Box Regression)详解](https://blog.csdn.net/zijin0802034/article/details/77685438)
-
-
+- [1] [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497)
+- [2] [Faster R-CNN](https://zhuanlan.zhihu.com/p/24916624)
+- [3] [Scale invariance](https://en.wikipedia.org/wiki/Scale_invariance)
+- [4] [“知其然且知其所以然”之目标检测](https://aistudio.baidu.com/aistudio/projectdetail/2166507)
+- [5] [Object Detection for Dummies Part 3: R-CNN Family](https://lilianweng.github.io/lil-log/2017/12/31/object-recognition-for-dummies-part-3.html)
 
 <br>
 
-### SSD
+
+### **SSD**
 
 SSD 算法，全称是 Single Shot MultiBox Detector，从名字可以知道该检测算法属于 one-stage 方法（Single Shot），并且是多框预测（MultiBox）。
 
@@ -218,20 +231,18 @@ SSD 算法，全称是 Single Shot MultiBox Detector，从名字可以知道该�
 - [1] [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325)
 - [2] [目标检测|SSD原理与实现](https://zhuanlan.zhihu.com/p/33544892)
 
-
 <br>
 
-### SPP
 
+### **SPP**
 
 参考资料：
 - [1] [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition](https://arxiv.org/abs/1406.4729)
 
-
 <br>
 
-### YOLO 系列
 
+### YOLO 系列
 
 #### YOLO
 从R-CNN到Fast R-CNN一直采用的思路是proposal+分类 （proposal 提供位置信息， 分类提供类别信息）精度已经很高，但是速度还不行。 YOLO提供了另一种更为直接的思路： 直接在输出层回归bounding box的位置和bounding box所属的类别(整张图作为网络的输入，把 Object Detection 的问题转化成一个 Regression 问题)
