@@ -37,6 +37,7 @@ TODO
 - Hinge损失函数
 - 感知损失
 
+<br>
 
 ### Medical Image Segmentation
 
@@ -89,10 +90,12 @@ Penalty loss | <img src='resource/loss_function/img_18.png' height=90> | GD 的�
 
 损失函数 | 公式 | 说明
 --- | --- | ---
-Boundary (BD) loss | 
-Hausdorff Distance (HD) | <img src='resource/loss_function/img_21.png' height=50>
-
+Boundary (BD) loss | <img src='resource/loss_function/img_26.png' height=40> | Boundary loss，该函数通过计算预测和金标间不一致区域的面积来近似表示边缘距离
+Hausdorff Distance (HD) | <img src='resource/loss_function/img_21.png' height=60> | HD 是基于边缘的评估指标，直接应用 HD 比较难训练，本函数采用了距离变换的方法， d<sub>G</sub> 和 d<sub>S</sub> 是通过距离变换计算得到。
 </center>
+
+说明：Boundary-based Loss 一般是需要与 Region-based Loss 配合使用。
+
 <br>
 
 #### **Compound Loss**
@@ -101,12 +104,10 @@ Hausdorff Distance (HD) | <img src='resource/loss_function/img_21.png' height=50
 
 损失函数 | 公式 | 说明
 --- | --- | ---
-Combo loss | <img src='resource/loss_function/img_22.png' height=30>
-Exponential Logarithmic loss (ELL) | <img src='resource/loss_function/img_23.png' height=50>
-Dice loss with focal loss | <img src='resource/loss_function/img_25.png' height=28>
-Dice loss with TopK loss | <img src='resource/loss_function/img_24.png' height=25>
-
-
+Combo loss | <img src='resource/loss_function/img_22.png' height=30> | CE 和 Dice 两者之和
+Exponential Logarithmic loss (ELL) | <img src='resource/loss_function/img_23.png' height=50> | 为了解决物体尺寸不平衡的问题，采用对数和指数形式，同时综合了 Dice 和 CE
+Dice loss with focal loss | <img src='resource/loss_function/img_25.png' height=28> | 增加对分割较差物体的惩罚，在 Dice 基础上增加 Focal loss 作为新的损失函数
+Dice loss with TopK loss | <img src='resource/loss_function/img_24.png' height=25> | Dice 和 TopK 之和
 </center>
 <br>
 
@@ -137,11 +138,6 @@ Dice loss with TopK loss | <img src='resource/loss_function/img_24.png' height=2
 - [6] [Loss odyssey in medical image segmentation](https://www.sciencedirect.com/science/article/abs/pii/S1361841521000815)
 - [7] [Loss functions for image segmentation](https://github.com/JunMa11/SegLoss)
 - [8] [一文搞懂交叉熵损失](https://www.cnblogs.com/wangguchangqing/p/12068084.html)
+- [9] [Hausdorff Distance(豪斯多夫距离)](https://www.cnblogs.com/icmzn/p/8531719.html)
+- [10] [Hausdorff distance between convex polygons](http://cgm.cs.mcgill.ca/~godfried/teaching/cg-projects/98/normand/main.html)
 
-
-
-一般步骤：
-- loss 的定义
-- loss 的特点
-- 常见的loss
-- 比较与建议
