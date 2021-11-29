@@ -23,6 +23,14 @@
   - RMSprop
   - Adam
 
+### Optimizer
+
+优化器：
+- 不同优化其
+
+
+### Learning rate
+
 
 
 参考资料：
