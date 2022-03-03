@@ -150,3 +150,7 @@ s | 和 u 相反，删除文件或目录时，会被彻底删除（直接从硬�
 参考资料：
 - [Linux chattr命令详解：修改文件系统的权限属性](http://c.biancheng.net/view/874.html)
 
+
+
+
+
