@@ -1,75 +1,37 @@
-## 深度学习基础
+## 样本不均衡问题
+
+
+ua
+
+
+样本不均衡的常见处理方法：
+- 重采样
+- loss 权重
 
 
 
-
-一般来说，深度学习开发的步骤如下：
-- 1.分析问题：分析清楚需要解决的问题，明确适应场景，使用范围等
-- 2.确定技术方案：根据明确的问题及资源情况等，设计合理的技术方案（一般来说，技术方案会包括下面各项步骤）
-- 3.数据（金标）准备与预处理：准备数据和金标，根据需要对数据进行预处理。预处理操作需要结合实际场景和网络结构等情况。
-- 4.明确评估方案：如何评估结果的好坏，明确评估指标，确定合理的数据集划分方案（训练，验证和测试数据集）。
-- 5.设计模型训练策略：深度学习训练过程，涉及较多知识
-  - 数据归一化：提高模型的泛化性能
-  - 数据增广：增加数据多样性，避免过拟合
-  - 损失函数：模型收敛的目标方程。根据需要解决的问题设计合理的损失函数至关重要，但这一步难度较大，通常是使用常见的损失函数。
-  - 困难样本学习：针对困难样本的处理学习方法。
-  - label编码：提高模型训练时的速度。
-  - 优化函数：与数学原理相关，寻找最优解的方法。
-  - 学习率：与优化函数迭代优化的步长相关。
-  - 模型结构：设计并修改合适的模型结构，对提取相关特征至关重要。
-- 6.结果分析与模型改进
+从两个角度出发：
+- 数据
+- 算法
 
 
-### 目录
+### 数据角度
 
-深度学习基础知识：
-- **网络结构**
-  - [ ] 网络结构基础
-  - [ ] 经典的网络结构
-- **损失函数**
-  - [ ] 损失函数的定义和目的
-  - [ ] 常见的损失函数
-  - [ ] 如何设计损失函数
-- **激活函数**
-  - [x] 激活函数的定义和目的
-  - [x] 常见的激活函数
-  - [ ] 不同激活函数之间的比较和疑问
-- **优化方法**
-  - [ ] 常见的优化方法和数学原理 
-- **训练技巧**
-- **过拟合**
-  - [ ] 过拟合的定义
-  - [ ] 避免过拟合的常见方法
-- **泛化性**
-- **其他**
-  - [ ] backward and forward 比较
-  - [ ] Scale invariance
-  - [ ] hard mining
-  - [ ] Transfer Learning
-  - [ ] 数据预处理
-  - [ ] 线性回归和非线性回归
+- SMOTE (Synthetic Minority Over-sampling Technique)
+
+### 算法角度
+
+深度学习常见的方法
+
+- OHEM（online hard example mining）
+- Focal loss:
 
 
 
----
+参考资料：
+- [1] [Training Region-based Object Detectors with Online Hard Example Mining](https://arxiv.org/abs/1604.03540v1)
+- [2] [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002)
+- [3] [SMOTE: Synthetic Minority Over-sampling Technique](https://arxiv.org/abs/1106.1813)
+- [4] [Multi-Class Imbalanced Classification](https://machinelearningmastery.com/multi-class-imbalanced-classification/)
 
-### 优化方法（Optimization）
-
-如何选择优化方法？
-全局最优化，避免局部最优化
-
-常见的优化方法有：
-- SGD(stochastic gradient descent)
-- Momentum
-- Nesterov
-- Adagrad
-- Adadelta
-- RMSprop
-- Adam
-- Adamax
-- Nadam
-
-更多资料，可以参考：
-- [An overview of gradient descent optimization algorithms](http://ruder.io/optimizing-gradient-descent/)
-- [深度学习最全优化方法总结比较（SGD，Adagrad，Adadelta，Adam，Adamax，Nadam）](https://zhuanlan.zhihu.com/p/22252270)
 

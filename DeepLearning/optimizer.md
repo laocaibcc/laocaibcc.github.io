@@ -22,11 +22,39 @@
   - ADAdelta
   - RMSprop
   - Adam
+  - Adamax
+  - Nadam
 
 ### Optimizer
 
 优化器：
 - 不同优化其
+
+
+---
+
+### 优化方法（Optimization）
+
+如何选择优化方法？
+全局最优化，避免局部最优化
+
+常见的优化方法有：
+- SGD(stochastic gradient descent)
+- Momentum
+- Nesterov
+- Adagrad
+- Adadelta
+- RMSprop
+- Adam
+- Adamax
+- Nadam
+
+更多资料，可以参考：
+- [An overview of gradient descent optimization algorithms](http://ruder.io/optimizing-gradient-descent/)
+- [深度学习最全优化方法总结比较（SGD，Adagrad，Adadelta，Adam，Adamax，Nadam）](https://zhuanlan.zhihu.com/p/22252270)
+
+
+
 
 
 ### Learning rate
