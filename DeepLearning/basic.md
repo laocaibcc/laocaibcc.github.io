@@ -13,7 +13,6 @@
   - 数据增广：增加数据多样性，避免过拟合
   - 损失函数：模型收敛的目标方程。根据需要解决的问题设计合理的损失函数至关重要，但这一步难度较大，通常是使用常见的损失函数。
   - 困难样本学习：针对困难样本的处理学习方法。
-  - label编码：提高模型训练时的速度。
   - 优化函数：与数学原理相关，寻找最优解的方法。
   - 学习率：与优化函数迭代优化的步长相关。
   - 模型结构：设计并修改合适的模型结构，对提取相关特征至关重要。
@@ -26,6 +25,7 @@
 - **网络结构**
   - [ ] 网络结构基础
   - [ ] 经典的网络结构
+  - [ ] 常见的网络层
 - **损失函数**
   - [ ] 损失函数的定义和目的
   - [ ] 常见的损失函数
@@ -37,10 +37,6 @@
 - **优化方法**
   - [ ] 常见的优化方法和数学原理 
 - **训练技巧**
-- **过拟合**
-  - [x] 过拟合的定义
-  - [x] 避免过拟合的常见方法
-- **泛化性**
 - **其他**
   - [ ] backward and forward 比较
   - [ ] Scale invariance
@@ -48,28 +44,12 @@
   - [ ] Transfer Learning
   - [ ] 数据预处理
   - [ ] 线性回归和非线性回归
+- **常见问题**
+  - [ ] 样本不均衡问题
+  - [ ] 多尺度问题：样本尺寸变化范围较大
+  - [ ] 小物体问题
+  - [ ] 过拟合
+  - [ ] 泛化性（与过拟合是相关的）
+  - [ ] 困难样本
 
-
-
----
-
-### 优化方法（Optimization）
-
-如何选择优化方法？
-全局最优化，避免局部最优化
-
-常见的优化方法有：
-- SGD(stochastic gradient descent)
-- Momentum
-- Nesterov
-- Adagrad
-- Adadelta
-- RMSprop
-- Adam
-- Adamax
-- Nadam
-
-更多资料，可以参考：
-- [An overview of gradient descent optimization algorithms](http://ruder.io/optimizing-gradient-descent/)
-- [深度学习最全优化方法总结比较（SGD，Adagrad，Adadelta，Adam，Adamax，Nadam）](https://zhuanlan.zhihu.com/p/22252270)
 
