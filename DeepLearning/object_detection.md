@@ -96,7 +96,7 @@ Fast RCNN 算法流程如下：
 **论文梳理**
 - 1.模型结构：Fast RCNN 将 RCNN 中的特征提取，物体分类和bbox回归整合到一个网络中。
   - 1）网络结构：整张图像和候选框 - 多个卷积层 - RoI pooling 层 - 全连接层 - 分类输出和bbox回归输出（都有全连接层）。
-  - 2）RoI pooling 层：本质上是为了将不同尺寸的 RoI 特征转换为相同的特征图输出，保证特征图展开后具有相同的大小尺寸，能够与下层的全连接层连接。
+  - 2）RoI pooling 层：本质上是为了将不同尺寸的 RoI 特征转换为相同的特征图输出，保证特征图展开后具有相同的大小尺寸，能够与下层的全连接层连接。(将特征图平均分为一个合适的尺寸)
     - i.根据输入 image，将 ROI 映射到 feature map 对应位置；
     - ii.将映射后的区域划分为相同大小的 sections（sections 数量与输出的维度相同）；
     - iii.对每个 sections 进行 max pooling 操作；
@@ -108,7 +108,7 @@ Fast RCNN 算法流程如下：
 - 2.损失函数：Fast RCNN 采用了多任务的损失函数
   - 1）Fast RCNN 的损失函数如公式（1）所示，包括两个部分，物体分类损失函数和 bbox 回归损失函数
   - 2）物体分类损失函数，采用的是对数损失函数：*L<sub>cls</sub> = - logp<sub>u</sub>*
-  - 3)bbox 回归损失函数，采用的 smooth L1 损失函数，如公式（2）所示
+  - 3）bbox 回归损失函数，采用的 smooth L1 损失函数，如公式（2）所示
 <center>
 <img src='resource/object_detection/img_16.png' height=40>
 <br>
