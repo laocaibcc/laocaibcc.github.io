@@ -42,6 +42,12 @@ Batch Normalizaiton 是一种通过对输入数据重新居中和重新缩放的
 
 **归一化**:提高模型的泛化能力，具有更加广泛的适应性。  
 
+使用实例：
+```sh
+# PyTorch BN 层
+
+```
+
 <br>
 
 #### **Transposed Convolution**
